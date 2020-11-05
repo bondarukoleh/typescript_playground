@@ -12,10 +12,13 @@ To define the configuration for the TypeScript compiler, there is a file called 
 }
 ```
 
-Interesting stuff about the classes constructors, you don't need to have the statements inside.
+Interesting stuff about the classes constructors, you don't need to have the statements inside if you have the arguments
+with the access modifiers - because that's how compiler understands that you are using shorter properties in a 
+constructor.
+TypeScript assumes that all methods and properties are `public` unless another access level is used.
 ```typescript
 class ToDo {
-  public constructor({id}: IToDo) {
+ constructor(public id: IToDo) {
     // Instance will have public id property
   }
 }

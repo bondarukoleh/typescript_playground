@@ -1,7 +1,10 @@
-import {ToDoItem} from './item';
+import {ItemCollection} from './items/ItemCollection';
 
+const collectionName = 'Work';
+const itemTask = 'Learn TS';
+const id = 1;
 
-const item = new ToDoItem({task: 'Do some work', complete: false, id: Math.floor(Math.random() * 1000)})
-
-item.printDetails();
+const itemCollection = new ItemCollection(collectionName);
+itemCollection.addItem(itemTask, id);
+itemCollection.completeTask(id);
 
