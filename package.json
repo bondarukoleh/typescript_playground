@@ -13,11 +13,16 @@
     "type": "git",
     "url": "git+https://github.com/bondarukoleh/typescript_playground.git"
   },
-  "keywords": ["typescript"],
+  "keywords": [
+    "typescript"
+  ],
   "author": "Oleh Bondaruk",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/bondarukoleh/typescript_playground/issues"
   },
-  "homepage": "https://github.com/bondarukoleh/typescript_playground#readme"
+  "homepage": "https://github.com/bondarukoleh/typescript_playground#readme",
+  "dependencies": {
+    "@types/node": "^14.14.6"
+  }
 }

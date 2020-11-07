@@ -16,10 +16,16 @@ Interesting stuff about the classes constructors, you don't need to have the sta
 with the access modifiers - because that's how compiler understands that you are using shorter properties in a 
 constructor.
 TypeScript assumes that all methods and properties are `public` unless another access level is used.
+Adding explicit type to variable helping compiler to not calculate implicit type. 
 ```typescript
 class ToDo {
  constructor(public id: IToDo) {
     // Instance will have public id property
   }
 }
+
+const item: ToDo = new ToDo(1);
+
+// there are generic types in Typesript of cource
+const map = new Map<string, number>();
 ```
