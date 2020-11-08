@@ -29,3 +29,14 @@ const item: ToDo = new ToDo(1);
 // there are generic types in Typesript of cource
 const map = new Map<string, number>();
 ```
+
+### Type
+Combination of property names and the types of their values known as an **object’s shape**.
+A specific combination of names and types is known as a **shape type**.
+
+```typescript
+type ItemCounts = {
+  total: number,
+  incomplete: number
+}
+```

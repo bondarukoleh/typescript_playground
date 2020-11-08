@@ -1,5 +1,10 @@
 import {ToDoItem} from './Item'
 
+type ItemsCount = {
+  total: number,
+  incomplete: number
+}
+
 export class ItemCollection {
   constructor(public name: string, public toDoItems: Map<number, ToDoItem> = new Map<number, ToDoItem>()) {
   }
@@ -22,8 +27,27 @@ export class ItemCollection {
     }
   }
 
+  getItems(completedOnly: boolean = true): ToDoItem[] {
+    return [...this.toDoItems.values()].filter(item => completedOnly && !item.complete);
+  }
+
+  removeCompleted() {
+    this.toDoItems.forEach((item, key) => {
+      if(item.complete) {
+        this.toDoItems.delete(key);
+      }
+    })
+  }
+
   removeItem(item: ToDoItem): void {
     this.toDoItems.delete(item.id);
+  }
+
+  getCount(): ItemsCount {
+    return {
+      incomplete: this.getItems().length,
+      total: this.toDoItems.size
+    };
   }
 
   static generateID(): number {
