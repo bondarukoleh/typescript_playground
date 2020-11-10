@@ -31,5 +31,9 @@ itemCollection.completeTask(1);
 // itemCollection.removeCompleted();
 // console.log(itemCollection.getCount())
 
-promptUser(itemCollection);
+// promptUser(itemCollection);
+
+const returnString = () => "string";
+const num = returnString() as unknown as number;
+num.toFixed();
 

@@ -40,3 +40,13 @@ type ItemCounts = {
   incomplete: number
 }
 ```
+
+### Type assertions
+```typescript
+const returnString = () => "string";
+const num = returnString() as unknown as number;  // I override the compiler
+num.toFixed();
+```
+Type assertion allows me to tell the compiler to use the type that I specify, even if it has identified a different
+data type. When a type assertion is used, it overrides the compiler, which means that I am responsible for ensuring
+that the type I assert is correct.
