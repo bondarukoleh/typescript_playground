@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es5",
     "outDir": "./dist",
     "rootDir": "./src",
     "module": "commonjs",
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "lib": ["es5", "dom", "es2015.collection"]
   }
 }

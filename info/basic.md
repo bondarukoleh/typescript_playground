@@ -83,3 +83,30 @@ for the APIs that are available in Node.js and browsers.
 This can cause problems with chains of tools that execute or further process the JavaScript emitted by the TypeScript.
 Fortunately, this behavior can be disabled by setting the `noEmitOnError: true` in compileOptions section.
 
+The ``version`` of the JavaScript language targeted by the compiler is specified by the `target` in compileOptions section.
+Target is for the output of the code. 
+
+| key | value |
+|:---:|:---|
+|es3|third edition of the language specification, defined in December 1999, the baseline for the language. default value when the target setting is not defined.|
+|es5| fifth edition of the language specification, defined in December 2009|
+|es6| sixth edition, added features - classes and modules, arrow functions, and promises.|
+|es2015| This is equivalent to ES6.|
+|es2016| seventh edition, introduced the includes method for arrays and an exponentiation operator|
+|es2017| eighth edition, introduced features for inspecting objects and new keywords for asynchronous operations|
+|es2018| ninth edition, introduced the spread and rest operators and improvements for string handling and asynchronous operations.|
+|esNext| features that are expected to be included in the next edition of the specification. Changes between releases.|
+
+Other Values for the `lib` `compilerOption`. Lib tells the compiler which language features are available when
+the compiled code is run.
+
+|Name|Description|
+|:---|:---|
+|es5, es2015, es2016, es2017, es2018|select type definition files that correspond to a specific version of JavaScript.|
+|esnext| selects features that are proposed additions to the JavaScript specification.|
+|dom| selects type information files for the DOM API. This setting is also useful for Node.js applications. |
+|dom.iterable| information for the additions to the DOM API that allow iteration over HTML elements.|
+|scriphHost| this for the Windows Script Host, which allows for automation on Windows systems.|
+|webworker| this for the web worker feature, which allows web applications to perform background tasks.|
+
+Also like es2015.core, es2015.generator, es2015.promise, etc.
