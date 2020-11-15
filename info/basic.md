@@ -173,3 +173,10 @@ The linter comes with preconfigured sets of rules that are specified using the e
 ```shell script
 npx tslint --project tsconfig.json --config tslint.json
 ```
+If you don't want to turn off some rule just for one line:
+```typescript
+//ts:lint-disable-next-line
+//tslint:disable
+```
+
+###Unit Testing TypeScript
