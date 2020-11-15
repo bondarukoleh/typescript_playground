@@ -4,6 +4,8 @@
     "format": "verbose"
   },
   "rules": {
-    "no-console": false
+    "no-console": false,
+    "no-debugger": false,
+    "prefer-const": false
   }
 }
