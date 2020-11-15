@@ -110,3 +110,66 @@ the compiled code is run.
 |webworker| this for the web worker feature, which allows web applications to perform background tasks.|
 
 Also like es2015.core, es2015.generator, es2015.promise, etc.
+
+We can set the module system we want to use. Changes in tsconfig **won't trigger** the watch mode. 
+```json
+"compilerOptions": {
+    "module": "commonjs"
+  }
+```
+|Name|Description|
+|:---|:---|
+|none|disables modules|
+|commonjs|selects the CommonJS module format, which is supported by Node.js.|
+|amd|selects the Asynchronous Module Definition (AMD), which is supported by the RequireJS module loader.|
+|system|selects the module format supported by the SystemJS module loader.|
+|umd|selects the Universal Module Definition (UMD) module format.|
+|es2015, es6|selects the module format specified in the ES2016 language specification.|
+|esnext|selects the module features that have been proposed for the next version of the JavaScript language.|
+
+TS compiler can use two approaches to resolving modules. The two modes are **classic** (search in local project)
+**Node** (search in the node_modules). **classic** mode used when `module` property es2015, system, or amd.
+For all other `module` values **Node** is used. Resolution style can be specified using the `moduleResolution` value.
+
+###Testing and debugging
+The difficulty with debugging a TypeScript application is that the code being executed is compiler product, TS
+transpiled to JS. To help the debugger, the compiler can generate files known as **source maps**.
+```json
+"compilerOptions": {
+  "sourceMap": true
+}
+```
+Compiler will generate a `.map` file, alongside the JavaScript files in the dist folder.
+
+You can add breakpoint (if supported) or add `debugger` keyword, but Node.js ignores the debugger keyword by default.
+Edit configuration in WebStorm or VSCode - and debug the code. Or we can use inspect:
+```shell script
+node inspect ./dist/index.js;
+node --inspect=127.0.0.1:4000 use.tsc/dist/index.js;
+node --inspect-brk dist/index.js; #you can inspect in chrome, after run brk go to chrome://inspect -> Remote Target -> inspect
+```
+
+### TypeScript Linter
+The standard linter for TypeScript is TSLint.
+The linter comes with preconfigured sets of rules that are specified using the extends setting.
+
+```json
+{
+  "extends": ["tslint:recommended"],
+  "linterOptions": {
+    "format": "verbose"
+  }
+}
+```
+
+|Name|Description|
+|:---|:---|
+|tslint:recommended|set of rules suggested by the TSLint development team and is intended for general TypeScript development|
+|tslint:latest|extends the recommended set to include recently defined rules|
+|tslint:all|contains all of the linter’s rules, which can produce a large number of linting errors|
+
+`verbose` is for rule that violated printed in error message.
+
+```shell script
+npx tslint --project tsconfig.json --config tslint.json
+```
