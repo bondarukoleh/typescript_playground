@@ -1,0 +1,25 @@
+{
+  "name": "ts.types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start_tsc_w": "tsc --watch",
+    "start": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "2.0.6",
+    "typescript": "4.0.5"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules"
+    ],
+    "exec": "node ./dist/index.js"
+  }
+}

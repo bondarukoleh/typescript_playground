@@ -1,7 +1,7 @@
 import {sum, runAsync} from './calc'
 
 function printMsg(message: string): void {
-  console.log(`This is your message: "${message}"`);
+  console.log(`This is your message asdasd: "${message}"`);
 }
 
 const msg = 'Hello TypeScript';

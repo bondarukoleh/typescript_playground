@@ -23,19 +23,12 @@
     "url": "https://github.com/bondarukoleh/typescript_playground/issues"
   },
   "homepage": "https://github.com/bondarukoleh/typescript_playground#readme",
-  "nodemonConfig": {
-    "ignore": [
-      ".git",
-      "node_modules"
-    ],
-    "exec": "node ./use.tsc/dist/index.js"
-  },
+
   "dependencies": {
     "@types/node": "14.14.6",
     "inquirer": "7.3.3"
   },
   "devDependencies": {
-    "@types/inquirer": "7.3.1",
-    "nodemon": "2.0.6"
+    "@types/inquirer": "7.3.1"
   }
 }

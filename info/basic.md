@@ -180,3 +180,80 @@ If you don't want to turn off some rule just for one line:
 ```
 
 ###Unit Testing TypeScript
+Jest with packages can ensure that TS code transpiled to JS before executing test. \
+`jest` package - testing framework, `@types/jest` Jest API type definitions, `ts-jest` plugin for compiling TS files
+before tests are applied.
+
+The `transform` property in jest.config.js is used to tell Jest that files with the ts and tsx file extension should be
+processed with the ts-jest package, which ensures that changes to the code are reflected in tests without needing
+to explicitly start the compiler. \
+Tests are defined in files that have the test.ts file extension and are conventionally created alongside the code files
+they relate to.
+
+Useful Jest Matcher Functions
+
+|Name|Description|
+|:---|:---|
+|toBe(value)|asserts that a result is the same as the specified value (but need not be the same object).|
+|toEqual(object)|asserts that a result is the same object as the specified value.|
+|toMatch(regexp)|asserts that a result matches the specified regular expression.|
+|toBeDefined()|asserts that the result has been defined.|
+|toBeUndefined()|asserts that the result has not been defined.|
+|toBeNull()|asserts that the result is null.|
+|toBeTruthy()|asserts that the result is truthy.|
+|toBeFalsy()|asserts that the result is falsy.|
+|toContain(substring)|asserts that the result contains the specified substring.|
+|toBeLessThan(value)|asserts that the result is less than the specified value.|
+|toBeGreaterThan(value)|asserts that the result is more than the specified value.|
+
+To run jest in watch mode, so the tests will run when the files in project have changed.
+```shell script
+npx jest --watchAll
+```
+
+##Types in TS
+compilerOptions used here
+
+|Name|Description|
+|:---|:---|
+|declaration|produces type declaration files when enabled, which can be useful in understanding how types have been concluded|
+|noImplicitAny|prevents the implicit use of the `any` type, which compiler uses when it can’t conclude a specific type|
+|outDir|specifies the directory in which the JavaScript files will be placed|
+|rootDir|specifies the root directory that the compiler will use to locate TypeScript files|
+|strictNullChecks|prevents `null` and `undefined` from being accepted as values for other types|
+
+JavaScript is dynamically typed, types have *values* instead of *variables*.
+
+###Static Type with a Type Annotation
+```typescript
+function calculateTax(amount: number /*parameter type annotation*/): number /*return type annotation*/ {
+  return amount * 1.2;
+}
+```
+When the code is compiled, TS compiler analyzes the data types of the values passed to the `calculateTax` and detects
+that the type of the passed values, producing the error if they are wrong.
+
+###Using Implicitly Defined Static Types
+```typescript
+function calculateTax(amount: number) {
+  return amount * 1.2;
+}
+const price = 100; // compile conclude the type
+const taxAmount = calculateTax(price); // compiler understand that we can pass price to the func and that taxAmount is a number
+```
+The TS compiler is able to conclude the *type* of the variable *based on the value* that is assigned when it is defined.
+The compiler knows that 100 is a number and treats the price variable like `price: number` with a number type annotation,
+which means that it is an acceptable value to use as an argument to the `calculateTax` function. \
+Compiler also able to conclude the result of the `calculateTax` function because it knows that only number parameters accepted. \
+Compiler able to conclude `taxAmount` is a number.
+
+To see how TS compiler see the types, we can add `"declaration": true` to `compilerOptions`. We'll in `.d.ts` files 
+something like:
+```typescript
+declare function calculateTax(amount: number): number;
+declare const price = 100;
+declare const taxAmount: number;
+``` 
+When you have the compilation error, it can help sometime to debug the error.
+
+###Using the any Type
