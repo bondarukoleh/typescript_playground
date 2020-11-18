@@ -257,3 +257,13 @@ declare const taxAmount: number;
 When you have the compilation error, it can help sometime to debug the error.
 
 ###Using the any Type
+When you use `any` type - you turn off compiler checks for value type, and take responsibilities on yourself.
+```typescript
+const res: any = 'qwe';
+const reset: number = res; // you can easily set any value here without the warning
+``` 
+
+>There also **unknown** type which is "save" **any**. You cannot reassign any value to initialized variable (except 
+>any and unknown type), without a check **as _type_**   
+
+Using Implicitly Defined Any Types
