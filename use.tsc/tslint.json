@@ -7,5 +7,6 @@
     "no-console": false,
     "no-debugger": false,
     "prefer-const": false
+//    "no-any": true
   }
 }

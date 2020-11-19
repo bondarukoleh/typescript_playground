@@ -1,4 +1,4 @@
-import {sum, runAsync} from './calc'
+import {sum, runAsync, weirFunc} from './calc'
 
 function printMsg(message: string): void {
   console.log(`This is your message asdasd: "${message}"`);
@@ -15,3 +15,9 @@ const result = sum(1, 2);
 console.log(result);
 
 runAsync().then(console.log)
+
+const res: string | number = weirFunc(1);
+console.log(res.toString());
+
+const ress: number = 1;
+

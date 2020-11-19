@@ -266,4 +266,25 @@ const reset: number = res; // you can easily set any value here without the warn
 >There also **unknown** type which is "save" **any**. You cannot reassign any value to initialized variable (except 
 >any and unknown type), without a check **as _type_**   
 
-Using Implicitly Defined Any Types
+###Using Implicitly Defined Any Types \
+TS compiler will use `any` if he cannot define more specific type 
+To disable this type backdoor, implicit any - `noImplicityAny` in compiler options. Same stuff with **strict** compiler
+setting. Also, there is `no-any` in tslint.
+
+###Type Unions
+```typescript
+const unionReturnType = (arg: string | number): boolean | number => arg;
+```
+This will give you some flexibility with inheritance and your own types, but you cannot involve methods that is uniq for
+one of the union type, method should be available for all union types in the list. Since there is not much common in
+primitives - the only thing that you can involve between number and string - `.toString` method. 
+
+###Using Type Assertions (narrowing)
+Tells the TS compiler to treat a value **as** a specific type, known _as type narrowing._. It's not casting. 
+One of the ways that you can narrow a type from a union.
+```typescript
+let str = unionReturnType('') as string;
+console.log(str.length);
+let num = unionReturnType(1) as number;
+console.log(num.toFixed())
+```
