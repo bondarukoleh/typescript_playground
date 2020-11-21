@@ -261,19 +261,16 @@ When you use `any` type - you turn off compiler checks for value type, and take 
 ```typescript
 const res: any = 'qwe';
 const reset: number = res; // you can easily set any value here without the warning
-``` 
-
->There also **unknown** type which is "save" **any**. You cannot reassign any value to initialized variable (except 
->any and unknown type), without a check **as _type_**   
-
-###Using Implicitly Defined Any Types \
+```  
+Using Implicitly Defined Any Types \
 TS compiler will use `any` if he cannot define more specific type 
 To disable this type backdoor, implicit any - `noImplicityAny` in compiler options. Same stuff with **strict** compiler
 setting. Also, there is `no-any` in tslint.
 
 ###Type Unions
 ```typescript
-const unionReturnType = (arg: string | number): boolean | number => arg;
+const unionReturnType = (arg: string | number): string | number => arg;
+const unionVar: string | number = unionReturnType() as string;
 ```
 This will give you some flexibility with inheritance and your own types, but you cannot involve methods that is uniq for
 one of the union type, method should be available for all union types in the list. Since there is not much common in
@@ -283,8 +280,127 @@ primitives - the only thing that you can involve between number and string - `.t
 Tells the TS compiler to treat a value **as** a specific type, known _as type narrowing._. It's not casting. 
 One of the ways that you can narrow a type from a union.
 ```typescript
+const unionReturnType = (arg: string | number): string | number => arg;
 let str = unionReturnType('') as string;
 console.log(str.length);
+/* same as angle brackets syntax, but you cannot use it in tsx files */
+let str1 = <string> unionReturnType('');
+console.log(str1.length);
 let num = unionReturnType(1) as number;
 console.log(num.toFixed())
+/* Force compiler to use needed type */
+let num1 = unionReturnType(1) as any as boolean;
 ```
+If you override type `as any as boolean` code should work (if you don't have error somewhere) because assertions only
+affect the _only type checking_ process and **do not perform type coercion**. 
+
+###Type Guard
+Compiler trusts JS's `typeof` lets you to use specific types methods after you check them
+```typescript
+if (typeof variable === 'string') {
+  console.log(variable.length);
+}
+
+switch (typeof variable) {
+  case "string":
+    console.log(variable.length);
+    break;
+  case "number":
+    console.log(variable.toFixed());
+    break;
+}
+```
+
+###Never type
+For situations where a type guard has dealt with all of the possible types that you can use here, but still the type is
+wrong, means you don't want code to work that way - and you need to handle tottaly wrong behavior.
+```typescript
+switch (typeof variable) {
+  case "string":
+    console.log(variable.length);
+    break;  
+  default
+    const wrongValue: never = variable;
+    throw new Error(`Something really goes wrong ${wrongValue} shouldn't be here!`) 
+}
+```
+
+###unknown type
+**unknown** type is "save" **any**. You cannot reassign any value to initialized variable (except `any` and `unknown` type),
+without a check **as _type_**.
+An `unknown` value cannot be assigned to some other type variable only to `any` or itself unless a _type assertion_ or
+_type guard_ is used.
+```typescript
+let someVar: unknown = weirFunc(1) as unknown;
+let num: number;
+// num = someVar; /* Error Type 'unknown' is not assignable to type 'number' */
+num = someVar as number /* type assertion */
+if (typeof someVar == 'number') { /* type guard */
+  num = someVar;
+}
+```
+
+###Using Nullable Types
+There is a hole in the TypeScript static type system: the JavaScript `null` and `undefined` types. The problem is that,
+by default, TypeScript treats null and undefined as legal values for all types.
+```typescript
+const num: number = null; /* fine by compiler */
+const num1: number = undefined;
+```
+Compiler allows `null` and `undefined` to be treated as **values for all types**.
+It's hard to understand that some function can return null.
+The use of null and undefined can be restricted by enabling the `strictNullChecks` compilerOptions setting, it won't let
+you to assign null or undefined to other typed variable. \
+After that you need to explicitly say that function returns `null`. 
+```typescript
+const unreliableFunc = (arg: any): number | string | null => {
+  if(arg === 0) {
+    return null;
+  }
+  typeof arg === 'string' ? 'string' : 1
+};
+const res: string | number | null = unreliableFunc("asd");
+``` 
+Nullable values don't have methods, so their types shouldn't be used even if you want it.
+But to have less headache with variable typing we can forse compiler to frget about the nullable returned values
+with **non-null assertion**
+```typescript
+const unreliableFunc = (arg: any): number | string | null => {
+  if(arg === 0) {
+    return null;
+  }
+  typeof arg === 'string' ? 'string' : 1
+};
+const res: string | number = unreliableFunc("asd")!; /* ! - allows you to not declare the null type of variable */
+``` 
+The assertion tells the compiler that the result from the unreliableFunc func will not be `null`, which allows it to be
+assigned to the `string | number` variable.
+
+Removing null from a Union with a Type Guard. We can do the guard and compiler will know that we can treat the variable
+as we like.
+```typescript
+const unreliableFunc = (arg: any): number | string | null => {
+  if(arg === 0) {
+    return null;
+  }
+  typeof arg === 'string' ? 'string' : 1
+};
+
+const res: string | number | null = unreliableFunc("asd");
+if(res !== null) {
+  const notNullRes: string | number = res;
+  /* work with res */
+} else {
+  console.log(`Value is null, can't do sh*t with it`);
+}
+```
+
+Using the Definite Assignment Assertion \
+Same stuff that we can do with functions non-null assertion we can do with variables, means we are taking the 
+responsibilities that variable will be initializated with the correct type. If strictNullChecks enabled - you cannot 
+leave the unassigned vars behind.  
+```typescript
+/* strictNullChecks enabled */
+// let res: number | string; /* Variable 'aa' is used before being assigned. */
+let res!: number | string; /* ! - forces compiler to be silent */
+``` 
