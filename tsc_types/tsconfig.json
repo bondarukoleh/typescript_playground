@@ -7,7 +7,8 @@
     "noEmitOnError": true,
     "lib": ["es5", "dom", "es2015.collection"],
     "sourceMap": true,
-    "declaration": true,
-    "strictNullChecks": true
+    "declaration": true
+//    "strictNullChecks": true
+//    "noImplicitAny": true
   }
 }
