@@ -1,8 +1,13 @@
-function simpleFunc() {
-  console.log('Some work')
+export function calculateTax(arg1 = false, arg2, format, message?: string, ...rest): number | string {
+  const res = arg1 + arg2;
+  return format ? res : `${res} ${message}`
 }
 
-// function simpleFunc() {
-//   console.log('Some work 2')
-// }
-
+export const someFunc = (...rest): boolean | undefined => {
+  if (rest.length) {
+    console.log('This is rest params')
+    console.log(rest)
+    return true
+  }
+  return undefined;
+}

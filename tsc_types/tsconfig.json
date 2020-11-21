@@ -6,9 +6,10 @@
     "module": "commonjs",
     "noEmitOnError": true,
     "lib": ["es5", "dom", "es2015.collection"],
-    "sourceMap": true,
-    "declaration": true
-//    "strictNullChecks": true
-//    "noImplicitAny": true
+    "declaration": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true
+    //    "sourceMap": true,
+    //    "noImplicitAny": true
   }
 }

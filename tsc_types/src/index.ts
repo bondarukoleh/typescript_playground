@@ -1,5 +1,5 @@
 import {sum, runAsync, weirFunc} from './calc'
-import * as inquirer from "inquirer";
+import {someFunc, calculateTax} from './functions'
 
 function tryFewThings() {
   function printMsg(message: string): void {
@@ -41,7 +41,7 @@ function checkNull() {
   // const num: number = null;
   // const num1: number = undefined;
 }
-checkNull()
+// checkNull()
 
 const tscImplicitAssertions = () => {
   function calculateTax(amount: number) {
@@ -58,3 +58,9 @@ const tscImplicitAssertions = () => {
   const reset: number = res;
 }
 // tscImplicitAssertions()
+
+function checkArgs () {
+  someFunc();
+}
+
+checkArgs();
