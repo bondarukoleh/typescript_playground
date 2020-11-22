@@ -11,3 +11,9 @@ export const someFunc = (...rest): boolean | undefined => {
   }
   return undefined;
 }
+
+export function returnNumOrStr (arg: number): number;
+export function returnNumOrStr (arg: string): string;
+export function returnNumOrStr (arg: string | number): string | number {
+  return typeof arg == 'number' ? 100 : `100`;
+}

@@ -1,5 +1,6 @@
 import {sum, runAsync, weirFunc} from './calc'
-import {someFunc, calculateTax} from './functions'
+import {someFunc, calculateTax, returnNumOrStr} from './functions'
+import * as arrays from './arrays';
 
 function tryFewThings() {
   function printMsg(message: string): void {
@@ -62,5 +63,13 @@ const tscImplicitAssertions = () => {
 function checkArgs () {
   someFunc();
 }
+// checkArgs();
 
-checkArgs();
+function checkOverLoaded() {
+  const num: number = returnNumOrStr(1);
+  const str: string = returnNumOrStr("");
+}
+
+function checkArrays(){
+  console.log(arrays)
+}
