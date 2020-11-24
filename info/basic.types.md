@@ -312,8 +312,8 @@ switch (typeof variable) {
 ```
 
 ###Never type
-For situations where a type guard has dealt with all of the possible types that you can use here, but still the type is
-wrong, means you don't want code to work that way - and you need to handle tottaly wrong behavior.
+For situations where a type guard has dealt with all the possible types that you can use here, but still the type is
+wrong, means you don't want code to work that way - and you need to handle totally wrong behavior.
 ```typescript
 switch (typeof variable) {
   case "string":
