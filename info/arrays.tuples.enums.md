@@ -55,3 +55,23 @@ products.forEach((product: [Product, number]) => {
   } 
 })
 ```
+Enums kind of object, and you can sometimes mess with it, to create more restricted enum we can use `const enum E {}`
+this will be transpiled in slightly different JS. There is `preserveConstEnums` setting by the way.
+
+###Literal Value Types
+Set of values that only allowed for this variable.
+```typescript
+let someVar: 1 | 2 | 3 = 1;
+// also in arguments
+function some(arg: 1 | 2) {}
+// you can combine literal types and value types
+enum E {AA, BB}
+function some(): 1 | string | true | E.AA {/* implement return */}
+```
+
+###Type Aliases
+To avoid repetition, you can create your own `type` and use it
+```typescript
+type comboType = [string, number | true, 1 | 2 | 3][]
+const arr: comboType = [["asd", true, 3], ["", 1, 2]]
+```

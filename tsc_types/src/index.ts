@@ -1,6 +1,8 @@
 import {sum, runAsync, weirFunc} from './calc'
 import {someFunc, calculateTax, returnNumOrStr} from './functions'
 import * as arrays from './arrays';
+import * as types from './types';
+import * as objects from './objects';
 
 function tryFewThings() {
   function printMsg(message: string): void {
@@ -70,6 +72,7 @@ function checkOverLoaded() {
   const str: string = returnNumOrStr("");
 }
 
-function checkArrays(){
+function runEverything(){
   console.log(arrays)
+  console.log(objects)
 }

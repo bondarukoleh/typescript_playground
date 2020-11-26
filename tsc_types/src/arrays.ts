@@ -10,9 +10,9 @@ let hatPrice = 100;
 let glovesPrice = 75;
 let umbrellaPrice = 42;
 
-writePrice("Hat", calculateTax(hatPrice));
-writePrice("Gloves", calculateTax(glovesPrice));
-writePrice("Umbrella", calculateTax(umbrellaPrice));
+// writePrice("Hat", calculateTax(hatPrice));
+// writePrice("Gloves", calculateTax(glovesPrice));
+// writePrice("Umbrella", calculateTax(umbrellaPrice));
 
 const numArr: number[] = [];
 // numArr.push("")
@@ -37,6 +37,14 @@ enum Values {
   A, B, C
 }
 
-console.log(Values.A)
+const some: Values = 1;
+// console.log(Values[some])
+// console.log(Values.B)
+
+// let a: 1 | 2 | 3 = null;
+// a = 1;
+
+type comboType = [string, number | true, 1 | 2 | 3][]
+const arr: comboType = [["asd", true, 3], ["", 1, 2]]
 
 export {}

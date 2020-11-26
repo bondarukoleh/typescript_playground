@@ -271,6 +271,8 @@ setting. Also, there is `no-any` in tslint.
 ```typescript
 const unionReturnType = (arg: string | number): string | number => arg;
 const unionVar: string | number = unionReturnType() as string;
+// To have an array
+const unionArr: (string | number)[] = unionReturnType() as string[];
 ```
 This will give you some flexibility with inheritance and your own types, but you cannot involve methods that is uniq for
 one of the union type, method should be available for all union types in the list. Since there is not much common in
