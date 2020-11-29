@@ -3,6 +3,7 @@ import {someFunc, calculateTax, returnNumOrStr} from './functions'
 import * as arrays from './arrays';
 import * as types from './types';
 import * as objects from './objects';
+import * as classesConstructor from './classes/constructor.func';
 
 function tryFewThings() {
   function printMsg(message: string): void {
@@ -75,4 +76,5 @@ function checkOverLoaded() {
 function runEverything(){
   console.log(arrays)
   console.log(objects)
+  console.log(classesConstructor)
 }
