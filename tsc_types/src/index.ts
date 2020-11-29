@@ -5,6 +5,10 @@ import * as types from './types';
 import * as objects from './objects';
 import * as classesConstructor from './classes/constructor.func';
 import * as classes from './classes/classes';
+import * as inheritance from './classes/inheritanse';
+import * as abstract from './classes/abstract';
+import * as interfaces from './classes/interfaces';
+import * as generics from './generics';
 
 function tryFewThings() {
   function printMsg(message: string): void {
@@ -75,8 +79,5 @@ function checkOverLoaded() {
 }
 
 function runEverything(){
-  console.log(arrays)
-  console.log(objects)
-  console.log(classesConstructor)
-  console.log(classes)
+  console.log(arrays, objects, classesConstructor, classes, inheritance, abstract, interfaces, generics)
 }

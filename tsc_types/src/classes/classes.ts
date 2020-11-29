@@ -7,7 +7,7 @@ type Person = {
 class Employee {
   public somePrivate;
 
-  constructor(public id, public name: string, public dept: string, public city: string) {
+  constructor(public readonly id, public name: string, public dept: string, public city: string) {
   }
 
   writeDept() {
@@ -22,12 +22,16 @@ let data: (Person | Employee)[] = [
   {id: "dpeters", name: "Dora Peters", city: "New York"},
   salesEmployee
 ];
-data.forEach(item => {
-  if (item instanceof Employee) {
-    item.writeDept();
-  } else {
-    console.log(`${item.id} ${item.name}, ${item.city}`);
-  }
-});
+// data.forEach(item => {
+//   if (item instanceof Employee) {
+//     item.writeDept();
+//   } else {
+//     console.log(`${item.id} ${item.name}, ${item.city}`);
+//   }
+// });
+
+class A { constructor(public a: string) {} }
+class B extends A { constructor(public a: string, public b: string) { super(a) } }
+export const arr = [new A("a"), new B("a", "b")];
 
 export {}
