@@ -23,19 +23,17 @@ Employee.prototype.writeDept = function() {
 };
 let salesEmployee = new Employee("fvega", "Fidel Vega", "Sales", "Paris");
 
-console.log(salesEmployee instanceof Employee)
-
-let data: (Person | Employee )[] =
+let data: (SomePerson | Employee )[] =
   [{ id: "bsmith", name: "Bob Smith", city: "London" },
     { id: "ajones", name: "Alice Jones", city: "Paris"},
     { id: "dpeters", name: "Dora Peters", city: "New York"},
     salesEmployee];
-data.forEach(item => {
-  if ("dept" in item) {
-    item.writeDept();
-  } else {
-    console.log(`${item.id} ${item.name}, ${item.city}`);
-  }
-});
+// data.forEach(item => {
+//   if ("dept" in item) {
+//     item.writeDept();
+//   } else {
+//     console.log(`${item.id} ${item.name}, ${item.city}`);
+//   }
+// });
 
 export {};

@@ -4,6 +4,7 @@ import * as arrays from './arrays';
 import * as types from './types';
 import * as objects from './objects';
 import * as classesConstructor from './classes/constructor.func';
+import * as classes from './classes/classes';
 
 function tryFewThings() {
   function printMsg(message: string): void {
@@ -77,4 +78,5 @@ function runEverything(){
   console.log(arrays)
   console.log(objects)
   console.log(classesConstructor)
+  console.log(classes)
 }
