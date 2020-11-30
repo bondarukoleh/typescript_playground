@@ -74,11 +74,12 @@ A class can implement more than one interface, meaning it must define the method
 
 ####Extending Interfaces
 Interfaces can be extended, just like classes with same result.
-> interfaces can extend types, types can be implemented as interfaces 🦿😰
+> interfaces can extend types, types can be implemented as interfaces, types can be created from classes 🦿😰
 ```typescript
 type AType = {some: string}
 interface IA extends AType {other: string}
 class A implements AType {some: string}
+type ATypeFromAClass = A
 ```
 You can force to do something optional from the interface by implement it with abstract class and make those vars abstract
 ```typescript
