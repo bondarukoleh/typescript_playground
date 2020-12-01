@@ -43,14 +43,12 @@ function genericSolution() {
   let productsData = new DataCollection<Product>(products);
   let firstPerson = peopleData.getItem(0);
   let firstProduct = productsData.getItem(0);
-  console.log(`First Person: ${firstPerson.name}, ${firstPerson.city}`);
-  console.log(`First Product: ${firstProduct.name}, ${firstProduct.price}`);
+  // console.log(`First Person: ${firstPerson.name}, ${firstPerson.city}`);
+  // console.log(`First Product: ${firstProduct.name}, ${firstProduct.price}`);
 }
 
 genericSolution();
 
 class DataCollection<T extends Person | Product> {
   private collection: T[] = [];
-
-
 }

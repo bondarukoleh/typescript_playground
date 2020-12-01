@@ -55,3 +55,36 @@ class DataCollection<T extends {name: string}> {
 >Generic type parameters can also be constrained using type aliases and interfaces.
 
 ####Defining Multiple Type Parameters
+You can add some types to generics.
+```typescript
+class DataCollection<T extends { name: string }, U> {
+  private items: T[] = [];
+  doSomething(data: U[]): (T & U)[] {}
+}
+```
+
+####Applying a Type Parameter to a Method
+When you need more flexible method, you can provide the generic type in method. The type parameter can be moved from
+the class declaration and applied directly to the method, allowing a different type to be specified each time the method
+is invoked
+```typescript
+class DataCollection<T extends { name: string }> {
+  private items: T[] = [];
+  doSomething<U>(data: U[]): (T & U)[] {}
+}
+new DataCollection<String>().doSomething<Number>([1, 2, 3])
+```
+
+####Allowing the Compiler to Conclude (Infer) Type Arguments
+The TypeScript compiler is able to infer generic type arguments based on the way that objects are created or methods
+are invoked. You can write less code, but it can bring more confusion.
+```typescript
+class DataCollection<T extends { name: string }> {
+  private items: T[] = [];
+  constructor(initialItems: T[]) {this.items.push(...initialItems);}
+  doSomething<U>(data: U[]): (T & U)[] {}
+}
+new DataCollection<>(["str", "str2"]).doSomething<>([1, 2, 3]); /* Compiler understands that T - string, U - nimber */
+```
+
+###Extending Generic Classes

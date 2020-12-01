@@ -4,11 +4,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "module": "commonjs",
-    "noEmitOnError": true,
+//    "noEmitOnError": true,
     "lib": ["es5", "dom", "es2015.collection"],
     "declaration": true,
-    "strictPropertyInitialization": true,
-    "strictNullChecks": true
+//    "strictPropertyInitialization": true
+//    "strictNullChecks": true
 //    "noImplicitReturns": true
     //    "sourceMap": true,
     //    "noImplicitAny": true,
