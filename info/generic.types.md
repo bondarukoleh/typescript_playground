@@ -88,3 +88,75 @@ new DataCollection<>(["str", "str2"]).doSomething<>([1, 2, 3]); /* Compiler unde
 ```
 
 ###Extending Generic Classes
+Extending generic class the subclass can choose to deal with the generic type parameters in several ways.
+1. The first approach is to simply add features to those defined by the superclass using the same generic types:
+```typescript
+class DataCollection<T extends { name: string }> {
+  private items: T[] = [];
+  constructor(initialItems: T[]) {this.items.push(...initialItems);}
+  doSomething<U>(data: U[]): (T & U)[] {}
+}
+class DataCollectionExtended<T extends { name: string }> extends DataCollection<T>{
+  constructor(initialItems: T[]) {
+    super(initialItems);
+  }
+  doSomethingElse<U>(data: U[]): T | undefined {
+    this.doSomething<U>(data)
+  }
+}
+```
+
+2. Narrowing down generics for subclasses. Fixed generic type.
+```typescript
+class DataCollection<T extends { name: string }> {
+  private items: T[] = [];
+  constructor(initialItems: T[]) {this.items.push(...initialItems);}
+  doSomething<U>(data: U[]): (T & U)[] {}
+}
+class DataCollectionExtended extends DataCollection<string>{ // for DataCollectionExtended instances there will be always String.  
+  constructor(initialItems: string[]) {
+    super(initialItems);
+  }
+  doSomethingElse<U>(data: U[]): T | undefined {
+    this.doSomething<U>(data)
+  }
+}
+```
+
+3. Restricting the Generic Type Parameter. Users still have some freedom, but they are still restricted. 
+```typescript
+class DataCollection<T extends { name: string }> {
+  private items: T[] = [];
+  constructor(initialItems: T[]) {this.items.push(...initialItems);}
+  doSomething<U>(data: U[]): (T & U)[] {}
+}
+class DataCollectionExtended<T extends String | Number> extends DataCollection<T>{  
+  constructor(initialItems: T[]) {
+    super(initialItems);
+  }
+  doSomethingElse<U>(data: U[]): T | undefined {
+    this.doSomething<U>(data)
+  }
+}
+```
+
+###Type Guarding Generic Types
+You **cannot** use `instansof` to understand the generic type you are working with since `instanceof` is JS and Generics
+is a TS stuff and it doesn't produce any value for JS to check. You need predicate with `is`.
+```typescript
+class DataCollection<T> {
+  /*filter<V extends T>(): V[] => items.filter(item => item instanceof V) as V[];*/ /* ERROR */
+  filter<V extends T>(checkType: (item) => item is V): V[] { /* Predicate to ensure the type */
+    return this.items.filter(item => checkType(item)) as V[];
+  }
+}
+
+const isPerson = (item): item is Person => {
+  return item instanceof Person;
+}
+let mixedData = new DataCollection<Person | Product>([...people, ...products]);
+let filteredProducts = mixedData.filter<Person>(isPerson);
+filteredProducts.forEach(p => console.log(`Person: ${ p.name}, ${p.name}`));
+```
+
+###Defining a Static Method on a Generic Class

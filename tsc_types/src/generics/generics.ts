@@ -47,8 +47,29 @@ function genericSolution() {
   // console.log(`First Product: ${firstProduct.name}, ${firstProduct.price}`);
 }
 
-genericSolution();
+// genericSolution();
 
-class DataCollection<T extends Person | Product> {
-  private collection: T[] = [];
+function typeGuard(){
+  class DataCollection<T> {
+    protected items: T[] = [];
+
+    constructor(initialItems: T[]) {
+      this.items.push(...initialItems);
+    }
+
+    filter<V extends T>(checkType: (item) => item is V): V[] {
+      return this.items.filter(item => checkType(item)) as V[];
+    }
+  }
+
+  const isPerson = (item): item is Person => {
+    return item instanceof Person;
+  }
+
+  let people = [new Person("Bob Smith", "London"), new Person("Dora Peters", "New York")];
+  let products = [new Product("Running Shoes", 100), new Product("Hat", 25)];
+  let mixedData = new DataCollection<Person | Product>([...people, ...products]);
+  let filteredProducts = mixedData.filter<Person>(isPerson);
+  filteredProducts.forEach(p => console.log(`Person: ${ p.name}, ${p.name}`));
 }
+

@@ -24,5 +24,5 @@ let employees = [new Employee("Bob Smith", "Sales"),  new Employee("Alice Jones"
 let peopleData = new DataCollection<Person>(people);
 let collatedData = peopleData.collate<City>(cities, "city", "name");
 let empData = peopleData.collate<Employee>(employees, "name", "name");
-collatedData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.population}`));
-empData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.role}`));
+// collatedData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.population}`));
+// empData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.role}`));
