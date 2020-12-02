@@ -160,3 +160,75 @@ filteredProducts.forEach(p => console.log(`Person: ${ p.name}, ${p.name}`));
 ```
 
 ###Defining a Static Method on a Generic Class
+Static methods can define their own generic type parameters
+```typescript
+class DataCollection<T> {
+  static reverse<ArrayType>(arr: ArrayType[]): ArrayType[] {
+    return arr.reverse();
+  }
+}
+
+let reversedArr = DataCollection.reverse<string>(['asd1', 'asd2']);
+```
+
+###Defining Generic Interfaces
+Interfaces can be defined with generic type parameters, allowing functionality to be defined without specifying
+individual types
+```typescript
+type shapeType = { name: string };
+interface Collection<T extends shapeType> {
+  add(...newItems: T[]): void;
+  get(name: string): T;
+  count: number;
+}
+class PersonCollection implements Collection<Person> {
+  count: number;
+  add(...newItems: Person[]): void {}
+  get(name: string): Person { return null }
+}
+```
+
+Extending Generic Interfaces \
+Generic interfaces can be extended just like regular interfaces, behavior same as extending generic class.
+simply duplicate the type, narrowing type to some specific, or restrict type with union. 
+```typescript
+type shapeType = { name: string };
+interface Collection<T extends shapeType> {
+  add(...newItems: T[]): void;
+  get(name: string): T;
+  count: number;
+}
+interface SearchableCollection<T extends shapeType> extends Collection<T> {
+  find(name: string): T | undefined;
+}
+interface ProductCollection extends Collection<Product> {
+  sumPrices(): number;
+}
+interface PeopleCollection<T extends Product | Employee> extends Collection<T> {
+  getNames(): string[];
+}
+```
+
+###Implementing a Generic Interface
+When a class implements a generic interface, it must implement all the required interface properties and methods, but it
+has some choices about how to deal with type parameters.
+####Passing on the Generic Type Parameter
+1. The simplest - implement the interface properties and methods without changing the type parameter;
+```typescript
+interface Collection<T extends shapeType> {}
+class ArrayCollection<DataType extends shapeType> implements Collection<DataType> {}
+let peopleCollection: Collection<Person> = new ArrayCollection<Person>(); /* pay attention that instanse interface typed */
+```
+2. Restricting or Fixing the Generic Type Parameter
+   Classes can provide an implementation of an interface that is specific to a type or a subset of the types supported
+   by the interface
+```typescript
+interface Collection<T extends shapeType> {}
+class PersonCollection implements Collection<Person> {} /* Fixed instances to Person type */
+let peopleCollection: Collection<Person> = new PersonCollection();
+
+class MixedCollection<T extends Person | Employee> implements Collection<T> {} /* Restriction */
+let mixedCollection: Collection<Person> = new MixedCollection();
+```
+
+####Creating an Abstract Interface Implementation

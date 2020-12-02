@@ -406,3 +406,10 @@ leave the unassigned vars behind.
 // let res: number | string; /* Variable 'aa' is used before being assigned. */
 let res!: number | string; /* ! - forces compiler to be silent */
 ``` 
+
+Don’t ever use the types `Number, String, Boolean, Symbol, or Object`. These types refer to non-primitive boxed objects
+that are almost never used appropriately in JavaScript code.
+```typescript
+/* WRONG */
+function reverse(s: String): String {}
+```

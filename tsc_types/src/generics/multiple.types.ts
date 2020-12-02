@@ -15,6 +15,10 @@ class DataCollection<T extends { name: string }> {
     });
     return results;
   }
+
+  static reverse<ArrayType>(arr: ArrayType[]): ArrayType[] {
+    return arr.reverse();
+  }
 }
 
 let people = [new Person("Bob Smith", "London"), new Person("Dora Peters", "New York")];
@@ -24,5 +28,6 @@ let employees = [new Employee("Bob Smith", "Sales"),  new Employee("Alice Jones"
 let peopleData = new DataCollection<Person>(people);
 let collatedData = peopleData.collate<City>(cities, "city", "name");
 let empData = peopleData.collate<Employee>(employees, "name", "name");
+let reversedCities = DataCollection.reverse<Employee>(employees);
 // collatedData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.population}`));
 // empData.forEach(c => console.log(`${c.name}, ${c.city}, ${c.role}`));
