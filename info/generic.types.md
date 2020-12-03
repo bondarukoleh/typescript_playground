@@ -12,7 +12,7 @@ type **without knowing what that type** will be in advance.
 ```typescript
 class DataCollection<T> {
   private collection: T[] = [];
-  constructor(T[] initialCollection) {
+  constructor(initialCollection:T[]) {
     this.collection.push(...iniinitialCollection);
   };
 }
@@ -232,3 +232,14 @@ let mixedCollection: Collection<Person> = new MixedCollection();
 ```
 
 ####Creating an Abstract Interface Implementation
+An abstract class can provide a partial implementation of an interface, which can be completed by subclasses.
+The abstract class has the same set of options for dealing with type parameters as regular classes:
+pass it on to subclasses unchanged, apply further restrictions, or fix for specific types.
+```typescript
+abstract class ArrayCollection<T extends shapeType> implements Collection<T> {
+  add(...newItems: T[]): void {}
+  abstract get(searchTerm: string): T;
+}
+abstract class ArrayCollection implements Collection<Person> {}
+abstract class ArrayCollection <T extends Person | Employee> implements Collection<T> {}
+```

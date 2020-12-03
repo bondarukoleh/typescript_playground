@@ -1,4 +1,4 @@
-import { City, Person, Product, Employee } from "./types";
+import { City, Person, Product, Employee } from "./dataTypes";
 
 class DataCollection<T extends { name: string }> {
   private items: T[] = [];

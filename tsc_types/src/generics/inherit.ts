@@ -1,4 +1,4 @@
-import {City, Person, Product, Employee} from "./types";
+import {City, Person, Product, Employee} from "./dataTypes";
 
 class DataCollection<T extends { name: string }> {
   protected items: T[] = [];
@@ -37,8 +37,8 @@ let employees = [new Employee("Bob Smith", "Sales"),
   new Employee("Alice Jones", "Sales")];
 let peopleData = new SearchableCollection<Person>(people);
 let foundPerson = peopleData.find("Bob Smith");
-if (foundPerson !== undefined) {
-  console.log(`Person ${foundPerson.name}, ${foundPerson.city}`);
-}
+// if (foundPerson !== undefined) {
+//   console.log(`Person ${foundPerson.name}, ${foundPerson.city}`);
+// }
 
 export {}

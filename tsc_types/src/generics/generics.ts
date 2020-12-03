@@ -1,4 +1,4 @@
-import {Person, Product} from './types';
+import {Person, Product} from './dataTypes';
 
 /* Problem: you have some types you need to work with, you can do type union.  */
 function problemWithUnion() {
