@@ -51,7 +51,7 @@ function indexedAccessOperator() {
 }
 // indexedAccessOperator()
 
-function collectionIntexType() {
+function collectionIndexType() {
   class Collection<T, K extends keyof T> implements Iterable<T> {
     private items: Map<T[K], T>;
 
@@ -89,5 +89,5 @@ function collectionIntexType() {
   console.log(productsPriceAsKey.get(25)) // {hat, 25}
 }
 
-collectionIntexType()
+// collectionIndexType()
 export {}

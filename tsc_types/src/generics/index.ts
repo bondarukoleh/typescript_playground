@@ -5,3 +5,5 @@ export * from './interfaces';
 export * from './collections.basic';
 export * from './iterable';
 export * from './index.types';
+export * from './type.mapping';
+export * from './conditional.types';

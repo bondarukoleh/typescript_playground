@@ -231,7 +231,7 @@ class MixedCollection<T extends Person | Employee> implements Collection<T> {} /
 let mixedCollection: Collection<Person> = new MixedCollection();
 ```
 
-####Creating an Abstract Interface Implementation
+#### Creating an Abstract Interface Implementation
 An abstract class can provide a partial implementation of an interface, which can be completed by subclasses.
 The abstract class has the same set of options for dealing with type parameters as regular classes:
 pass it on to subclasses unchanged, apply further restrictions, or fix for specific types.
