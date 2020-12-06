@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export function sizeFormatter(thing, count) {
   writeMessage(`The ${thing} has ${count} items`);
 }
