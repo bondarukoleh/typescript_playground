@@ -1,5 +1,5 @@
-#Using Arrays, Tuples, and Enums
-##Arrays 
+# Using Arrays, Tuples, and Enums
+## Arrays 
 You can restrict types that array can contain.
 ```typescript
 const numArr: number[] = [];
@@ -15,7 +15,7 @@ TS compiler can determine what type if array we are using without the type annot
 on initialization.
 Try to avoid type unions - it's easy to catch error with them, and empty arrays - empty means `let arr: any = [];`
 
-###Understanding the never Array Type Pitfall
+### Understanding the never Array Type Pitfall
 TS determines types for empty arrays differently when `null` and `undefined` values are not assignable to other types.
 With `strictNullChecks` enabled it tells the compiler to restrict the use of `null` and `undefined` and prevents the
 compiler from using `any` as the type of an empty array it uses `never` type, which means that nothing can be added to
@@ -31,7 +31,7 @@ declare const emptyArr: any[];
 emptyArr.push(""); // ok, whatever
 ```
 
-##Tuples
+## Tuples
 Tuples are fixed-length arrays, where each element in the array can have a different type. Tuples are a data structure
 that is provided by the TypeScript compiler implemented using regular JavaScript arrays in the compiled code, so we can
 use all the Array API here.
@@ -43,7 +43,7 @@ let products: [string, number][] = [["Hat", 100], ["Gloves", 75]];
 let tupleUnion: ([string, number] | boolean)[] = [true, false, hat, ...products];
 ```
 
-##Enums
+## Enums
 An enum allows a collection of values to be used by name, which makes code easier to read and ensures that a fixed set
 of values is used consistently.
 ```typescript
@@ -58,7 +58,7 @@ products.forEach((product: [Product, number]) => {
 Enums kind of object, and you can sometimes mess with it, to create more restricted enum we can use `const enum E {}`
 this will be transpiled in slightly different JS. There is `preserveConstEnums` setting by the way.
 
-###Literal Value Types
+### Literal Value Types
 Set of values that only allowed for this variable.
 ```typescript
 let someVar: 1 | 2 | 3 = 1;
@@ -69,7 +69,7 @@ enum E {AA, BB}
 function some(): 1 | string | true | E.AA {/* implement return */}
 ```
 
-###Type Aliases
+### Type Aliases
 To avoid repetition, you can create your own `type` and use it
 ```typescript
 type comboType = [string, number | true, 1 | 2 | 3][]

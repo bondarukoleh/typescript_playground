@@ -131,7 +131,7 @@ TS compiler can use two approaches to resolving modules. The two modes are **cla
 **Node** (search in the node_modules). **classic** mode used when `module` property es2015, system, or amd.
 For all other `module` values **Node** is used. Resolution style can be specified using the `moduleResolution` value.
 
-###Testing and debugging
+### Testing and debugging
 The difficulty with debugging a TypeScript application is that the code being executed is compiler product, TS
 transpiled to JS. To help the debugger, the compiler can generate files known as **source maps**.
 ```json
@@ -179,7 +179,7 @@ If you don't want to turn off some rule just for one line:
 //tslint:disable
 ```
 
-###Unit Testing TypeScript
+### Unit Testing TypeScript
 Jest with packages can ensure that TS code transpiled to JS before executing test. \
 `jest` package - testing framework, `@types/jest` Jest API type definitions, `ts-jest` plugin for compiling TS files
 before tests are applied.
@@ -211,7 +211,7 @@ To run jest in watch mode, so the tests will run when the files in project have 
 npx jest --watchAll
 ```
 
-##Types in TS
+## Types in TS
 compilerOptions used here
 
 |Name|Description|
@@ -224,7 +224,7 @@ compilerOptions used here
 
 JavaScript is dynamically typed, types have *values* instead of *variables*.
 
-###Static Type with a Type Annotation
+### Static Type with a Type Annotation
 ```typescript
 function calculateTax(amount: number /*parameter type annotation*/): number /*return type annotation*/ {
   return amount * 1.2;
@@ -233,7 +233,7 @@ function calculateTax(amount: number /*parameter type annotation*/): number /*re
 When the code is compiled, TS compiler analyzes the data types of the values passed to the `calculateTax` and detects
 that the type of the passed values, producing the error if they are wrong.
 
-###Using Implicitly Defined Static Types
+### Using Implicitly Defined Static Types
 ```typescript
 function calculateTax(amount: number) {
   return amount * 1.2;
@@ -256,7 +256,7 @@ declare const taxAmount: number;
 ``` 
 When you have the compilation error, it can help sometime to debug the error.
 
-###Using the any Type
+### Using the any Type
 When you use `any` type - you turn off compiler checks for value type, and take responsibilities on yourself.
 ```typescript
 const res: any = 'qwe';
@@ -267,7 +267,7 @@ TS compiler will use `any` if he cannot define more specific type
 To disable this type backdoor, implicit any - `noImplicityAny` in compiler options. Same stuff with **strict** compiler
 setting. Also, there is `no-any` in tslint.
 
-###Type Unions
+### Type Unions
 ```typescript
 const unionReturnType = (arg: string | number): string | number => arg;
 const unionVar: string | number = unionReturnType() as string;
@@ -278,7 +278,7 @@ This will give you some flexibility with inheritance and your own types, but you
 one of the union type, method should be available for all union types in the list. Since there is not much common in
 primitives - the only thing that you can involve between number and string - `.toString` method. 
 
-###Using Type Assertions (narrowing)
+### Using Type Assertions (narrowing)
 Tells the TS compiler to treat a value **as** a specific type, known _as type narrowing._. It's not casting. 
 One of the ways that you can narrow a type from a union.
 ```typescript
@@ -296,7 +296,7 @@ let num1 = unionReturnType(1) as any as boolean;
 If you override type `as any as boolean` code should work (if you don't have error somewhere) because assertions only
 affect the _only type checking_ process and **do not perform type coercion**. 
 
-###Type Guard
+### Type Guard
 Compiler trusts JS's `typeof` lets you to use specific types methods after you check them
 ```typescript
 if (typeof variable === 'string') {
@@ -313,7 +313,7 @@ switch (typeof variable) {
 }
 ```
 
-###Never type
+### Never type
 For situations where a type guard has dealt with all the possible types that you can use here, but still the type is
 wrong, means you don't want code to work that way - and you need to handle totally wrong behavior.
 ```typescript
@@ -327,7 +327,7 @@ switch (typeof variable) {
 }
 ```
 
-###unknown type
+### unknown type
 **unknown** type is "save" **any**. You cannot reassign any value to initialized variable (except `any` and `unknown` type),
 without a check **as _type_**.
 An `unknown` value cannot be assigned to some other type variable only to `any` or itself unless a _type assertion_ or

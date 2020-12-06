@@ -1,4 +1,4 @@
-##Functions
+## Functions
 Couple of new compilerOptions
 `noImplicitReturns` - requires all paths in a function to return a result. \
 `noUnusedParameters` - causes the compiler to produce a warning if a function defines parameters that are not used.
@@ -17,13 +17,13 @@ contain no items if there were no extra arguments.
 ```typescript
 function a (arg1, arg2: boolean = true, arg2?: string, ...rest) { console.log(arg) }
 ```
-###Type Annotations to Function Parameters
+### Type Annotations to Function Parameters
 ```typescript
 function a (arg1: number, ...rest: number[]) { console.log(arg) }
 ```
 If you faced with null values use parameters types union or types guard in function realization.
 
-###Function Results
+### Function Results
 TS compiler will try to decide the result `type` from the function and will automatically use type unions if a
 function can return multiple types. To see how compiler sees it - use
 We can enable noImplicitReturns - to be more strict with returned result.
@@ -42,7 +42,7 @@ function some(): void {}
 function some(): never {}
 ```
 
-###Overloading Function Types
+### Overloading Function Types
 Type unions don't describe the relations of the different types that function can return, and function user forced to
 use the type guards If there some relations. Between the arguments and the function results it is easy to show them
 with overloading. But be careful, you need to watch the same signature for the types overload. \

@@ -1,8 +1,8 @@
-#Working with Objects
+# Working with Objects
 New compilerOption - `suppressExcessPropertyErrors` - prevents the compiler from generating errors for objects that
 define properties not in a specified shape.
 
-###Shape
+### Shape
 Compiler same as with other things tries to type everything, so even if you don't provide `type` or `interface` for an
 object compiler still set the `shape` as a type for an object
 ```typescript
@@ -26,7 +26,7 @@ let improvedPrduct: {name: string, price: number, someOther?: string}
 let improvedPrduct2: {name: string, price: number, someOther?: string, getSomething?(arg: number): boolean}
 ```
 
-###Understanding Union Property Types
+### Understanding Union Property Types
 So there is little lack of strict types. When a union of shape types is created, the types of each common property
 are combined, also using a union.
 ```typescript
@@ -70,7 +70,7 @@ dataItems.forEach(item => {
 ```
 It is a `type predicate` if it is true, then the compiler will treat the object as the **specified type**
 
-##Type Intersections
+## Type Intersections
 If in _type unions_ you could use only the common methods and properties for united types, as long as the object that 
 you are working with has the things that common for those types.
 ```typescript

@@ -1,10 +1,10 @@
-#Generic Types
+# Generic Types
 Generic types are placeholders for types that are resolved when a class or function is used, this allows type-safe code
 that can deal with a range of different types, such as collection or classes. \
 Problem: you have some types you need to work with, you can do type union or use interfaces or abstract classes - you 
 still get the monstro class that works with everything, which is not the thing you need sometimes.
 
-###Generic class
+### Generic class
 A generic class is a class that has a **generic type parameter** it is a placeholder for a `type` that is specified when
 the class is used to create a new object. Generic type parameters allow classes to be written that operate on a specific
 type **without knowing what that type** will be in advance.
@@ -25,7 +25,7 @@ instance of the `DataCollection<T>` class is created with the `new` keyword `new
 **Different Type Arguments** \
 The value of a generic type parameter affects only a single object, and a different type can be used for the next one.
 
-####Limit (Constrain) Generic Type Values
+#### Limit (Constrain) Generic Type Values
 Generic type can be anything, to explain a little more about it to compiler we can `extend` it. Type after `extends` is
 narrow type for the compiler. Of course compiler realize when you're initializing with some specific type - it will 
 treat object with specified type. So the `extends` keyword narrows the types that can be assigned to the **type parameter**,
@@ -54,7 +54,7 @@ class DataCollection<T extends {name: string}> {
 ```
 >Generic type parameters can also be constrained using type aliases and interfaces.
 
-####Defining Multiple Type Parameters
+#### Defining Multiple Type Parameters
 You can add some types to generics.
 ```typescript
 class DataCollection<T extends { name: string }, U> {
@@ -63,7 +63,7 @@ class DataCollection<T extends { name: string }, U> {
 }
 ```
 
-####Applying a Type Parameter to a Method
+#### Applying a Type Parameter to a Method
 When you need more flexible method, you can provide the generic type in method. The type parameter can be moved from
 the class declaration and applied directly to the method, allowing a different type to be specified each time the method
 is invoked
@@ -75,7 +75,7 @@ class DataCollection<T extends { name: string }> {
 new DataCollection<String>().doSomething<Number>([1, 2, 3])
 ```
 
-####Allowing the Compiler to Conclude (Infer) Type Arguments
+#### Allowing the Compiler to Conclude (Infer) Type Arguments
 The TypeScript compiler is able to infer generic type arguments based on the way that objects are created or methods
 are invoked. You can write less code, but it can bring more confusion.
 ```typescript
@@ -87,7 +87,7 @@ class DataCollection<T extends { name: string }> {
 new DataCollection<>(["str", "str2"]).doSomething<>([1, 2, 3]); /* Compiler understands that T - string, U - nimber */
 ```
 
-###Extending Generic Classes
+### Extending Generic Classes
 Extending generic class the subclass can choose to deal with the generic type parameters in several ways.
 1. The first approach is to simply add features to those defined by the superclass using the same generic types:
 ```typescript
@@ -140,7 +140,7 @@ class DataCollectionExtended<T extends String | Number> extends DataCollection<T
 }
 ```
 
-###Type Guarding Generic Types
+### Type Guarding Generic Types
 You **cannot** use `instansof` to understand the generic type you are working with since `instanceof` is JS and Generics
 is a TS stuff and it doesn't produce any value for JS to check. You need predicate with `is`.
 ```typescript
@@ -159,7 +159,7 @@ let filteredProducts = mixedData.filter<Person>(isPerson);
 filteredProducts.forEach(p => console.log(`Person: ${ p.name}, ${p.name}`));
 ```
 
-###Defining a Static Method on a Generic Class
+### Defining a Static Method on a Generic Class
 Static methods can define their own generic type parameters
 ```typescript
 class DataCollection<T> {
@@ -171,7 +171,7 @@ class DataCollection<T> {
 let reversedArr = DataCollection.reverse<string>(['asd1', 'asd2']);
 ```
 
-###Defining Generic Interfaces
+### Defining Generic Interfaces
 Interfaces can be defined with generic type parameters, allowing functionality to be defined without specifying
 individual types
 ```typescript
@@ -209,10 +209,10 @@ interface PeopleCollection<T extends Product | Employee> extends Collection<T> {
 }
 ```
 
-###Implementing a Generic Interface
+### Implementing a Generic Interface
 When a class implements a generic interface, it must implement all the required interface properties and methods, but it
 has some choices about how to deal with type parameters.
-####Passing on the Generic Type Parameter
+#### Passing on the Generic Type Parameter
 1. The simplest - implement the interface properties and methods without changing the type parameter;
 ```typescript
 interface Collection<T extends shapeType> {}

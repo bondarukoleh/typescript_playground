@@ -1,5 +1,5 @@
-#Advanced Generic Types
-###Generic Collections
+# Advanced Generic Types
+### Generic Collections
 TypeScript provides support for using the JavaScript collections with generic type parameters, allowing a generic class
 to safely use collections
 
@@ -27,7 +27,7 @@ class DataCollection<T> {
   }
 }
 ```
-###Generic Iterators
+### Generic Iterators
 iterators allow a sequence of values to be enumerated, and support for iterators is a common feature for classes that
 operate on other types, such as collections. TypeScript provides the interfaces:
 
@@ -58,7 +58,7 @@ while (!result.done) {
 >Iterators were introduced in the ES6 standard. If you use iterators in your project and are targeting earlier
 > versions of JS, then you must set the TypeScript downlevelIteration compiler property to true.
 
-####Combining an Iterable and an Iterator
+#### Combining an Iterable and an Iterator
 With `IterableIterator<T>` you can iterate in more common manner.
 ```typescript
 class DataCollection<T> {
@@ -76,7 +76,7 @@ for (const product of productCollection.values()) {
 [...productCollection.values()].forEach(p => console.log(`Product: ${p.name}, ${ p.price}`));
 ```
 
-####Iterable Class
+#### Iterable Class
 Classes that define a Symbol.iterator property can implement the `Iterable<T>` interface
 ```typescript
 class Collection<T extends shapeType> implements Iterable<T> {
@@ -88,10 +88,10 @@ class Collection<T extends shapeType> implements Iterable<T> {
 [...productCollection].forEach(p => console.log(`Product: ${p.name}, ${ p.price}`));
 ```
 
-###Using Index Types
+### Using Index Types
 The `Collection<T>` class restricts the types it can accept using a shape type. TypeScript provides a set of related
 features that allow any property defined by an object to be used as a key while preserving type safety.
-####Using the Index Type Query
+#### Using the Index Type Query
 The `keyof` keyword, known as the _index type query operator_, returns a union of the property names of a type,
 using the literal value type feature. \
 The type annotation for the myVar variable is `keyof Product`, which will be the **union** of the property keys (names)
@@ -121,7 +121,7 @@ getValue(e, "name");
 getValue(e, "role");
 ```
 
-####Explicitly Providing Generic Type Parameters for Index Types
+#### Explicitly Providing Generic Type Parameters for Index Types
 We will set the types of method. `getValue<Product, "name">(p, "name");`, `<Product, "name">` _name_ is **Literal value type**
 specifies one of the `keyof Product` types and is used by the compiler for type checking. `(p, "name")` _name_ is string
 *value* used by the JavaScript runtime when the code is executed.
@@ -133,7 +133,7 @@ let p = new Product("Running Shoes", 100);
 getValue<Product, "name">(p, "name");
 ```
 
-####Using the Indexed Access Operator
+#### Using the Indexed Access Operator
 We can use indexed access operator to **get the type** of one or more properties.
 ```typescript
 type PriceT = Product['price'];
@@ -156,7 +156,7 @@ export const productName = getValue<Product, "name">(p, "name"));
 export declare const productName: string;
 ```
 
-####Using an Index Type for the Collection<T> Class
+#### Using an Index Type for the Collection<T> Class
 Allows me to change the `Collection<T>` class to store object of any type specified by user, and use a any object key as
 a key to get the object. So it's **super flexible**.
 ```typescript
@@ -183,4 +183,4 @@ let productsPriceAsKey: Collection<Product, "price"> = new Collection([new Produ
 console.log(productsPriceAsKey.get(25)) // {hat, 25}
 ```
 
-###Using Type Mapping
+### Using Type Mapping
