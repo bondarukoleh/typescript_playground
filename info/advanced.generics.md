@@ -122,3 +122,65 @@ getValue(e, "role");
 ```
 
 ####Explicitly Providing Generic Type Parameters for Index Types
+We will set the types of method. `getValue<Product, "name">(p, "name");`, `<Product, "name">` _name_ is **Literal value type**
+specifies one of the `keyof Product` types and is used by the compiler for type checking. `(p, "name")` _name_ is string
+*value* used by the JavaScript runtime when the code is executed.
+```typescript
+function getValue<T, K extends keyof T>(item: T, keyname: K) {
+  console.log(`Value: ${item[keyname]}`);
+}
+let p = new Product("Running Shoes", 100);
+getValue<Product, "name">(p, "name");
+```
+
+####Using the Indexed Access Operator
+We can use indexed access operator to **get the type** of one or more properties.
+```typescript
+type PriceT = Product['price'];
+// const onlyPriceT: PriceT = "asd"; /* Type 'string' is not assignable to type 'number'. */
+type AllProductT = Product[keyof Product]
+// const allPriceT: AllProductT = true; /* Type 'boolean' is not assignable to type 'AllProductT'.*/
+```
+The `keyof Product` expression returns a _literal value type union_ with the property names defined by the Product class,
+`"name" | "price"`. The indexed access operator returns the _union of the types_ of those properties, such that 
+`Product[keyof Product]` is `string | number`, which is the union of the types of the name and price properties.
+>The types returned by the indexed access operator are known as lookup types.
+
+```typescript
+function getValue<T, K extends keyof T>(item: T, keyName: K): T[K] {
+    return item[keyName];
+  }
+let p = new Product("Running Shoes", 100);
+export const productName = getValue<Product, "name">(p, "name"));
+/* because function returns T[K] and we provided the generic type parameters compiler understands it as */
+export declare const productName: string;
+```
+
+####Using an Index Type for the Collection<T> Class
+Allows me to change the `Collection<T>` class to store object of any type specified by user, and use a any object key as
+a key to get the object. So it's **super flexible**.
+```typescript
+class Collection<T, K extends keyof T> implements Iterable<T> {
+    private items: Map<T[K], T>; /* Means Map<string, Product> */
+    constructor(initialItems: T[] = [], private propertyName: K) { /* it's Product[] and "name" | "price" */
+      this.items = new Map<T[K], T>();
+      this.add(...initialItems);
+    }
+    add(...newItems: T[]): void {
+      newItems.forEach(newItem => this.items.set(newItem[this.propertyName], newItem)); /* Here we saying for the key use propertyName of the T */
+    }
+    get(key: T[K]): T { /* (ket: string): Product */
+      return this.items.get(key);
+    }
+    [Symbol.iterator](): Iterator<T> {
+      return this.items.values();
+    }
+  }
+
+let productsNameAsKey: Collection<Product, "name"> = new Collection([new Product("Hat", 25)], "name");
+console.log(productsNameAsKey.get('Hat')) // {hat, 25}
+let productsPriceAsKey: Collection<Product, "price"> = new Collection([new Product("Hat", 25)], "price");
+console.log(productsPriceAsKey.get(25)) // {hat, 25}
+```
+
+###Using Type Mapping
