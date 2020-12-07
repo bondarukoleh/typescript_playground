@@ -9,7 +9,13 @@
     "allowJs": true,
     "checkJs": true,
     "strictNullChecks": true,
-    "strictPropertyInitialization": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./types/*"
+      ]
+    }
+    //    "strictPropertyInitialization": true,
 //    "noImplicitAny": true,
 //    "noImplicitReturns": true
 //        "sourceMap": true,
