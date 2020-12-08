@@ -141,4 +141,3 @@ the files with description of the `.ts` files.
 
 >Be aware! Disabling the allowJS option only prevents the compiler from adding the JS files to the output folder.
 >It doesn’t prevent any of the TS code from depending on the JS files, which can lead to runtime errors.
-
