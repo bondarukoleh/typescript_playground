@@ -1,8 +1,10 @@
 # Working with JavaScript
 Some new compiler options:
-`baseUrl` - This option specifies the root location used to resolve module dependencies. \
-`allowJs` - This option includes JavaScript files in the compilation process. \
-`checkJs` - This option tells the compiler to check JavaScript code for common errors.
+`baseUrl` - specifies the root location used to resolve module dependencies. \
+`paths` - used to specify locations that the TS compiler will use to resolve import statements for modules
+`allowJs` - includes JavaScript files in the compilation process. \
+`checkJs` - tells the compiler to check JavaScript code for common errors.
+
 
 Often, you cannot work only with ts, either because TypeScript is introduced partway through a project or because you
 need to work with JavaScript code that has already been developed in earlier projects. \
@@ -117,3 +119,26 @@ File '.../typescript_playground/work_with_js/types/debug/index.d.ts' exist - use
 ```
 
 #### Using Definitely Typed Declaration Files
+The Definitely Typed project provides **declaration files** for JavaScript. It's more reliable and quicker way to use
+TypeScript with third-party packages than creating your own declaration.T o install the declaration file (e.g. for debug)
+```shell
+npm install --save-dev @types/debug
+```
+The name used for the *Definitely Typed package* is `@types/` followed by the `package name`. NPM will elect the types
+that correspond to the package version. Compiler by default looks for the types in `node_modules/@types` folder, if you
+don't change the `baseUrl`.
+
+#### Using Packages That Include Type Declarations
+Packages have started to include declaration files, so that no additional downloads are required. The easiest way to
+see whether a project includes a declaration file is to look in `node_modules/package_name` folder, and you will
+see that it contains a `types folder` with an `index.d.ts` file, or check the `package.json` of the package, there should
+be `"types"` section that points to the `.d.ts` files.
+
+### Generating Declaration Files
+If your code is going to be used by other projects, you can ask the compiler to generate declaration files. The compiler
+won’t generate declaration files when the `allowJS` option is enabled. `declaration` option tells the compiler to generate 
+the files with description of the `.ts` files.
+
+>Be aware! Disabling the allowJS option only prevents the compiler from adding the JS files to the output folder.
+>It doesn’t prevent any of the TS code from depending on the JS files, which can lead to runtime errors.
+

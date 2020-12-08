@@ -17,7 +17,7 @@ export class Cart {
 
   addProduct(product: SportsProduct, quantity: number): number {
     if (this.items.has(product.id)) {
-      let item = this.items.get(product.id);
+      let item = this.items.get(product.id) as {quantity: any};
       item.quantity += quantity;
       return item.quantity;
     } else {
