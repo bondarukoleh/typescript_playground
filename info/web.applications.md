@@ -1,4 +1,6 @@
 # Creating Web Applications
+The application will retrieve list of products from a web service using an HTTP request. \
+The user selects products to assemble an order, which will be sent to the web service.
 ## Creating a Stand-Alone Web App without a framework
 Some new `compilerOptions`
 `jsx` - specifies how HTML elements in TSX files are processed \
@@ -46,5 +48,65 @@ TS -> WebPack <-> TS Loader <-> TS Compiler.
               -> JS.
 
 #### Adding a Development Web Server
+Web server is required to deliver the bundle file to the browser, so it can be executed. The `webpack-dev-server` (WDS)
+is an HTTP server that is integrated into webpack and includes support for triggering automatic browser reloads when
+a code file changes, and a new bundle file is produced.
+```js
+/* webpack.config.js */
+...
+devServer: {
+  contentBase: "./assets", 
+  port: 4500
+}
+...
+```
+This makes WDS to look for any file that is not a bundle in a folder named `assets` and to listen for HTTP requests
+on port 4500. To provide WDS with an HTML file that can be used to respond to browsers, create a `./assets` folder and
+add to it a file named index.html. \
+To start the server, run the command:
+```shell
+webpack serve
+```
+The HTTP server will start, and the bundle will be created. However, the dist folder is no longer used to store the
+files — the output from the bundling process is **held in memory** and used to respond to HTTP requests without 
+needing to create a file on disk.
+>Reload feature works only for code files and doesn’t apply to the HTML file in the assets folder. Restart needed for that.
 
+Toolchain changed: \
+TS -> WebPack <-> TS Loader <-> TS Compiler.
+              -> bundle.js      -> HTTP Server (WDS) -> Browser 
+              -> Assets folder  /
 
+#### Rendering HTML Content Using the DOM API
+Browsers provide the Domain Object Model (DOM) API to allow applications to interact with the HTML document displayed
+to the user, generate content dynamically, and respond to user interaction. \
+HTMLElement TS type that represent DOM API HTML element.
+
+#### Adding Support for Bootstrap CSS Styles
+Bootstrap open source CSS framework that makes it easy to consistently style HTML content.
+The webpack configuration can be extended with loaders for additional content types that are included in the bundle
+file, which means that the development toolchain can be extended to include support for CSS stylesheets, such as the
+one that defines the Bootstrap styles applied to the e.g. `h3` element. \
+```shell
+npm i -ED bootstrap css-loader style-loader
+```
+The `bootstrap` package contains the CSS styles that we want to apply to the example project. \
+The `css-loader` and `style-loader` packages contain the loaders that deal with CSS styles. 
+```javascript
+module.exports = {
+  ...
+  resolve: {extensions: [".ts", ".js", ".css"]},
+  module: {
+    rules: [
+      {test: /\.ts/, use: "ts-loader", exclude: /node_modules/},
+      {test: /\.css$/, use: ["style-loader", "css-loader"]},
+    ]
+  },
+  ...
+};
+```
+>The css and other loaders JS code that is executed when the contents of the bundle file are processed. This code uses
+>an API provided by the browser to create the CSS styles. Bundle file contains only JS but it delivers different types
+>of content to the client
+
+#### Using JSX to Create HTML Content
