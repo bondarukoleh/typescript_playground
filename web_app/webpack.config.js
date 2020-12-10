@@ -2,7 +2,7 @@ module.exports = {
   mode: "development",
   entry: "./src/index.ts",
   output: {filename: "bundle.js"},
-  resolve: {extensions: [".ts", ".js", ".css"]},
+  resolve: {extensions: [".ts", ".js", ".css", ".tsx"]},
   module: {
     rules: [
       {test: /\.ts/, use: "ts-loader", exclude: /node_modules/},
