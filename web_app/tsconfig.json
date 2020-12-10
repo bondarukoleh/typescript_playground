@@ -9,7 +9,9 @@
 //    "strictNullChecks": true,
     "allowJs": true,
     "jsx": "react",
-    "jsxFactory": "createElement"
+    "jsxFactory": "createElement",
+    "moduleResolution": "node",
+    "experimentalDecorators": true
   },
   "exclude": ["webpack.config.js", "./dist"]
 }

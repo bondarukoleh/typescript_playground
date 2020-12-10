@@ -186,9 +186,32 @@ to be compiled.
 Some new options:
 `emitDecoratorMetadata` - includes decorator metadata in the JavaScript emitted by the compiler. \
 `experimentalDecorators` - support for decorators. \
-`moduleResolution` - specifies the style of module resolution that should be used to resolve dependencies.
+`moduleResolution` - specifies the style of module resolution that should be used to resolve dependencies `: "node"` -
+tells the compiler that it can resolve dependencies by looking in the node_modules folder, `: "classic"` - it's like
+`import`.
 
 Packages: `json-server` package is a RESTful web service that will provide data for the application. \
 The `npm-run-all` package is a useful tool for running multiple NPM packages from a single command.
 
-### Adding a Web Service
+### Using Decorators
+Decorator feature is associated with Angular or Vue.js. Decorators are a proposed addition to the JavaScript 
+specification, but they are not widely used outside of Angular development and must be enabled with a compiler
+configuration setting. Don't forget to set the `"experimentalDecorators": true` in `compilerOptions`.
+Decorators are annotations that can be applied to modify classes, methods, properties, and parameters. \
+Decorator should return the function that gets the `class` to which the decorator has been applied, the `name` of the
+method, and a `PropertyDescriptor` object that describes the method.
+```typescript
+export const minimumValue = (propName: string, min: number) =>
+  (constructor: any, methodName: string, descriptor: PropertyDescriptor): any => {
+    const origFunction = descriptor.value;
+    descriptor.value = async function wrapper(...args) {
+      let results = await origFunction.apply(this, args);
+      return results.map(r => ({...r, [propName]: r[propName] < min ? min : r[propName]}));
+    }
+  }
+// ...
+@minimumValue("price", 30)
+getProducts(sortProp: ProductProp = "id");
+```
+
+#### Using Decorator Metadata

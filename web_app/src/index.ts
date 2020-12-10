@@ -1,8 +1,8 @@
-import {LocalDataSource} from "./data/localDataSource";
+import { RemoteDataSource } from "./data/remoteDataSource";
 import {HtmlDisplay} from "./htmlDisplay";
 import "bootstrap/dist/css/bootstrap.css";
 
-let ds = new LocalDataSource();
+let ds = new RemoteDataSource();
 
 async function displayData(): Promise<HTMLElement> {
   let showProduct = new HtmlDisplay();
