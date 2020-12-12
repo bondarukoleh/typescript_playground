@@ -1,5 +1,5 @@
 import {Product, Order} from "./entities";
-import {minimumValue} from "../decorators";
+import {minimumValue} from "../tools/decorators";
 
 export type ProductProp = keyof Product;
 

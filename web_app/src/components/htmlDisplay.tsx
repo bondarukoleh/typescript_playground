@@ -1,6 +1,6 @@
-import {Product, Order} from "./data/entities";
-import {createElement} from './tools/jsxFactory'
-import {AbstractDataSource} from "./data/abstractDataSource";
+import {Product, Order} from "../data/entities";
+import {createElement} from '../tools/jsxFactory'
+import {AbstractDataSource} from "../data/abstractDataSource";
 import {ProductList} from "./productList";
 
 export class HtmlDisplay {

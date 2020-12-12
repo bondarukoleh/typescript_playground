@@ -7,7 +7,7 @@
     "tscw": "tsc --watch",
     "webpack": "webpack",
     "wds": "webpack serve",
-    "json": "json-server ./src/data.js -p 4600",
+    "json": "json-server src/data/data.js -p 4600",
     "start": "npm-run-all -p json wds"
   },
   "keywords": [],

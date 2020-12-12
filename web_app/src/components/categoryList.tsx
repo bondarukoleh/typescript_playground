@@ -1,4 +1,4 @@
-import {createElement} from "./tools/jsxFactory";
+import {createElement} from "../tools/jsxFactory";
 
 export class CategoryList {
   props: {

@@ -1,5 +1,5 @@
-import {createElement} from "./tools/jsxFactory";
-import {Product} from "./data/entities";
+import {createElement} from "../tools/jsxFactory";
+import {Product} from "../data/entities";
 
 export class ProductItem {
   private quantity: number = 1;

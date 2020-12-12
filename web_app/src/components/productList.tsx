@@ -1,5 +1,5 @@
-import {createElement} from "./tools/jsxFactory";
-import {Product} from "./data/entities";
+import {createElement} from "../tools/jsxFactory";
+import {Product} from "../data/entities";
 import {ProductItem} from "./productItem";
 import {CategoryList} from "./categoryList";
 

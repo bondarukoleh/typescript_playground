@@ -1,5 +1,5 @@
 import { RemoteDataSource } from "./data/remoteDataSource";
-import {HtmlDisplay} from "./htmlDisplay";
+import {HtmlDisplay} from "./components/htmlDisplay";
 import "bootstrap/dist/css/bootstrap.css";
 
 let ds = new RemoteDataSource();
