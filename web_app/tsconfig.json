@@ -11,7 +11,8 @@
     "jsx": "react",
     "jsxFactory": "createElement",
     "moduleResolution": "node",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": ["webpack.config.js", "./dist"]
 }
