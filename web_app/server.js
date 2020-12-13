@@ -6,7 +6,7 @@ const app = express();
 app.use("/", express.static("dist"));
 app.use("/", express.static("assets"));
 
-const router = jsonServer.router("data.json");
+const router = jsonServer.router("./src/data/data.json");
 
 app.use(jsonServer.bodyParser);
 

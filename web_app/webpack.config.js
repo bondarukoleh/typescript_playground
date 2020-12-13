@@ -5,7 +5,7 @@ module.exports = {
   resolve: {extensions: [".ts", ".js", ".css", ".tsx"]},
   module: {
     rules: [
-      {test: /\.ts/, use: "ts-loader", exclude: /node_modules/},
+      {test: /\.ts/, use: "ts-loader", exclude: [/node_modules/, /server\.js/]},
       {test: /\.css$/, use: ["style-loader", "css-loader"]},
     ]
   },

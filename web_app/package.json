@@ -11,7 +11,7 @@
     "wds": "webpack serve",
     "json": "json-server src/data/data.js -p 4600",
     "start": "npm-run-all -p json wds",
-    "server": "node ./src/server.js"
+    "server": "node server.js"
   },
   "keywords": [],
   "author": "",
