@@ -5,10 +5,13 @@
   "main": "index.js",
   "scripts": {
     "tscw": "tsc --watch",
+    "postinstall": "tsc",
     "webpack": "webpack",
+    "webpack_prod": "webpack --mode \"production\"",
     "wds": "webpack serve",
     "json": "json-server src/data/data.js -p 4600",
-    "start": "npm-run-all -p json wds"
+    "start": "npm-run-all -p json wds",
+    "server": "node ./src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -27,5 +30,7 @@
     "webpack-cli": "4.2.0",
     "webpack-dev-server": "3.11.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "4.17.1"
+  }
 }

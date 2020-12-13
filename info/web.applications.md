@@ -273,3 +273,23 @@ getContent(): HTMLElement {
   </div>
 }
 ```
+
+### Deploying the Application
+
+#### Adding the Production HTTP Server Package
+WDS should not be used in production because it creates bundles dynamically based on changes in the source code.
+For prod, a regular HTTP server is required to deliver the HTML, CSS, and JS files to the browser.
+
+The `json-server` will store data persistently when configured to use a `JSON` file, rather than the JS file that
+allows the data to be reset during development.
+
+#### Building the Application
+```shell
+npx webpack --mode "production"
+```
+`--mode production` - webpack creates a bundle whose contents are minified, meaning that they are optimized for size
+instead of code readability. The TS compiled into JS, same as in development, and the `bundle` file is written to the 
+dist folder.
+
+
+#### Testing the Production Build
