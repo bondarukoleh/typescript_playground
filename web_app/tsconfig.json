@@ -14,5 +14,5 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "exclude": ["webpack.config.js", "./dist"]
+  "exclude": ["webpack.config.js", "./dist", "server.js"]
 }
