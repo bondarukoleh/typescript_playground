@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {DataSource} from './data/dataSource';
 import {Product} from './data/entities';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "product-list",
@@ -9,8 +10,7 @@ import {Product} from './data/entities';
 export class ProductList {
   selectedCategory = "All";
 
-  constructor(public dataSource: DataSource) {
-  }
+  constructor(public dataSource: DataSource, private router: Router) {}
 
   get products(): Product[] {
     return this.dataSource.getProducts("id",this.selectedCategory === "All" ? undefined : this.selectedCategory);
@@ -29,6 +29,6 @@ export class ProductList {
   }
 
   handleSubmit() {
-    console.log("SUBMIT");
+    this.router.navigateByUrl("/order");
   }
 }

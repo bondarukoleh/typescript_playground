@@ -1,0 +1,11 @@
+{
+  "name": "angularapp",
+  "description": "Angular Web App",
+  "repository": "https://github.com/bondarukoleh/typescript_playground",
+  "license": "0BSD",
+  "devDependencies": {
+    "express": "4.17.1",
+    "json-server": "0.16.3",
+    "connect-history-api-fallback": "1.6.0"
+  }
+}

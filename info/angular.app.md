@@ -326,3 +326,59 @@ renders its template content, and inserts it into the `product-list` element. Th
 generates is inspected, and the `header`, `category-list`, and `product-item` elements are discovered, leading to those
 components being instantiated and their content inserted into each element. The process is repeated until all of the
 elements that correspond to components have been resolved and the content can be presented to the user.
+
+## Improving Angular app
+`downlevelIteration`  - This option includes helper code to support iterators on older JavaScript runtimes.
+
+```typescript
+import { Router } from "@angular/router";
+export class OrderDetails {
+  constructor(private dataSource: DataSource, private router: Router) {
+  }
+  submit() {
+    this.dataSource.storeOrder().subscribe(id => this.router.navigateByUrl(`/summary/${id}`));
+  }
+}
+```
+
+The `Router` object allows the component to use the URL routing feature to navigate to a new URL and is used in the 
+`submit` method, that uses `DataSource` to send the user’s order to the server, waits for the response, and then uses
+the `Router` object’s `navigateByUrl` method to navigate to the URL that will display the `summary` to the user. \
+We can set link to navigate by `routerLink` directive, and browser will navigate to link when the element is clicked.
+```html
+<button class="btn btn-secondary m-1" routerLink="/products">Back</button>
+```
+
+```typescript
+/* app.module.ts */
+import { RouterModule } from "@angular/router"
+const routes = RouterModule.forRoot([
+  { path: "products", component: ProductList },
+  { path: "order", component: OrderDetails},
+  { path: "summary/:id", component: Summary},
+  { path: "", redirectTo: "/products", pathMatch: "full"}
+]);
+
+@NgModule({
+  declarations: [AppComponent, ProductItem, CategegoryList, Header, ProductList, OrderDetails, Summary],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, DataModelModule, routes], 
+  /* ... */
+})
+```
+The `RouterModule.forRoot` method is used to describe the URLs and the components that they will display, the default
+URL to `/products`.
+
+#### Deploying the Application
+`connect-history-api-fallback` package is useful when deploying apps that use URL routing. It maps requests for the
+URLs that the app supports to the index.html file, ensuring that browser won't present the “not found” error page.
+
+To build the prod app:
+```shell
+ng build --prod
+```
+
+To make image and run:
+```shell
+docker build . -t angularapp -f Dockerfile;
+docker run -p 4001:4001 angularapp;
+```
