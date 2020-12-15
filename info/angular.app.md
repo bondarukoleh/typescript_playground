@@ -204,5 +204,125 @@ and the `providers` property tells Angular that the `DataSource` class can be us
 that dependencies on the `DataSourceImpl` class should be resolved using the `RemoteDataSource` class.
 
 ### Showing the content
+Angular splits the generation of HTML content into two files:
+1. TS class to which the Component decorator is applied
+2. HTML template that is annotated with directives that direct the generation of dynamic content.
+   
+When the application is executed, the HTML template is compiled, and the directives are executed using the methods
+and properties provided by the TS class. \
+Classes to which the Component decorator is applied are known as *components*. \
+The convention in Angular development is to include the *role* of the class in the file name, so to create the component
+responsible for the details of a single product to the user, a file named productItem.
+```typescript
+import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Product} from './data/entities';
+export type productSelection = {product: Product, quantity: number}
 
+@Component({
+   selector: "product-item",
+   templateUrl: "./productItem.component.html"
+})
+export class ProductItem {
+   quantity: number = 1;
+   @Input()
+   product: Product;
+   @Output()
+   addToCart = new EventEmitter<productSelection>();
 
+   handleAddToCart() {
+      this.addToCart.emit({
+         product: this.product,
+         quantity: Number(this.quantity)
+      });
+   }
+}
+```
+The `@Component` decorator configures the component. `selector` property specifies the `HTML tag` that Angular will
+use to apply the component (in that case when Angular finds the element with `product-item` tag), `templateUrl`
+property specifies the component’s HTML template. \
+Angular uses the `@Input` decorator to denote the properties that allow components to receive data values through HTML
+element attributes. The `@Output` decorator is used to denote the flow of data out from the component through a custom
+event. The `ProductItem` class receives a `Product` object, and triggers a custom event when the user clicks a button,
+accessible through the `addToCart` property. \
+
+`Angular templates` use double curly braces to display the results of JS expressions, such as this one:
+```html
+<span class="badge badge-pill badge-primary float-right">
+  ${{ product.price.toFixed(2) }}
+</span>
+```
+Expressions are evaluated in the context of the component, so this fragment reads the value of the `product.price` etc. \
+Event handling is done using parentheses around the event name, like this:
+```html
+<button class="btn btn-success btn-sm float-right" (click)="handleAddToCart()">
+```
+This tells Angular that when the button element emits the click event, the component’s `handleAddToCart` method should
+be invoked.
+```html
+<select class="form-control-inline float-right m-1" [(ngModel)]="quantity">
+```
+The `ngModel` directly is applied with square brackets and parentheses and creates a two-way binding between the `select`
+element and the component’s `quantity` property. Changes to the `quantity` property will be reflected by the `select`
+element, and values picked using the select element are used to update the `quantity` property.
+
+```html
+<button *ngFor="let cat of categories" [class]="getBtnClass(cat)" (click)="selectCategory.emit(cat)">
+  {{ cat }}
+</button>
+```
+This template uses the `ngFor` directive to generate a button element for each of the values returned by the `categories`
+property. The asterisk `*` that prefixes `ngFor` indicates a short syntax that allows the `ngFor` directive to be
+applied directly to the element that will be generated. \
+Angular templates use square brackets to create a one-way binding between an `attribute` and a `data` value:
+```html
+<button *ngFor="let cat of categories" [class]="getBtnClass(cat)" (click)="selectCategory.emit(cat)">
+```
+The square brackets allow the value of the class attribute to be set using a JS expression, which is the result of
+calling the component’s `getBtnClass` method.
+
+Combine all together:
+```html
+<header [order]="dataSource.order" (submit)="handleSubmit()"></header>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3 p-2">
+      <category-list
+        [selected]="selectedCategory"
+        [categories]="categories"
+        (selectCategory)="handleCategorySelect($event)"></category-list>
+    </div>
+    <div class="col-9 p-2">
+      <product-item
+        *ngFor="let p of products"
+        [product]="p"
+        (addToCart)="handleAdd($event)"></product-item>
+    </div>
+  </div>
+</div>
+```
+The `header` tag corresponds to the `selector` setting for the `Component` decorator applied to the `Header` class.
+The `order` attribute is used to provide a value for the `@Input` property of the same name defined by the `Header` class
+and allows `ProductList` to provide `Header` with the data it requires. The `submit` attribute corresponds to the
+`@Output` property defined by the `Header` class and allows `ProductList` to receive notifications. The `ProductList`
+template uses header, category-list, and product-item elements to display the Header, CategoryList, and ProductItem
+components.
+```typescript
+// app.module.ts
+@NgModule({
+  declarations: [AppComponent, ProductItem, CategegoryList, Header, ProductList],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, DataModelModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+The `NgModule` decorator’s `declarations` property is used to declare the components that the application requires.
+The `imports` property is used to list the other modules the application requires and has been updated to include
+the data model module. \
+When the application runs, Angular will encounter the `product-list` element and compare it to the `selector` properties
+of the `@Component` decorators configured through the Angular module. The `productlist` tag corresponds to the `selector`
+property of the `@Component` decorator applied to the `ProductList` class. Angular creates a new `ProductList` object,
+renders its template content, and inserts it into the `product-list` element. The `HTML` that the `ProductList` component
+generates is inspected, and the `header`, `category-list`, and `product-item` elements are discovered, leading to those
+components being instantiated and their content inserted into each element. The process is repeated until all of the
+elements that correspond to components have been resolved and the content can be presented to the user.
