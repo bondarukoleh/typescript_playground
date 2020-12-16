@@ -117,3 +117,72 @@ export const ProductItem: FunctionComponent<Props> = (props) => {
 ```
 
 ### Creating the Data Store
+To add redux:
+```shell
+npm install redux react-redux @types/react-redux
+```
+The Redux package includes TS declarations, but an additional package is required for the React-Redux package, which
+connects React components to a data store.
+
+```typescript
+import {Product, Order} from "./entities";
+import {Action} from "redux";
+
+export interface StoreData {
+  products: Product[],
+  order: Order
+}
+export enum ACTIONS {
+  ADD_PRODUCTS, MODIFY_ORDER, RESET_ORDER
+}
+export interface AddProductsAction extends Action<ACTIONS.ADD_PRODUCTS> {
+  payload: Product[]
+}
+export interface ModifyOrderAction extends Action<ACTIONS.MODIFY_ORDER> {
+  payload: {
+    product: Product,
+    quantity: number
+  }
+}
+export interface ResetOrderAction extends Action<ACTIONS.RESET_ORDER> {
+}
+export type StoreAction = AddProductsAction | ModifyOrderAction | ResetOrderAction;
+```
+The `StoreData` interface describes the data that the data store will manage. \
+The `ACTIONS` enum defines a set of values, each of which corresponds to an action that the data store will support. \
+Each enum value is used as a type argument to the `Action` type, which is an interface provided by the Redux package.
+The `Action` interface is extended to describe the characteristics of the object for each action type, some of which
+have a payload property that provides the data that will be required to apply the action. \
+The `StoreAction` type is the intersection of the action interfaces.
+
+```typescript
+import {Reducer} from "redux";
+export const StoreReducer: Reducer<StoreData, StoreAction> = (data: StoreData | undefined, action) => {
+  data = data || {products: [], order: new Order()}
+  switch (action.type) {
+    case ACTIONS.ADD_PRODUCTS:
+      return {
+        ...data,
+        products: [...data.products, ...action.payload]
+      };
+    case ACTIONS.MODIFY_ORDER:
+      //...
+  }
+}
+```
+A reducer function receives the data currently in the `data` and an `action` and returns the modified data. \
+`Reducer<S, A>` - where `S` is shape of the store and `A` is the type that represents the actions the store supports. 
+
+Root reducer:
+```typescript
+import { createStore, Store } from "redux";
+import { StoreReducer } from "./reducer";
+import { StoreData, StoreAction } from "./types";
+export const dataStore: Store<StoreData, StoreAction> = createStore(StoreReducer);
+```
+
+#### Configuring URL Routing
+React doesn’t include built-in support for URL routing, but the most commonly used package is React Router.
+```shell
+npm install react-router-dom @types/react-router-dom
+```
