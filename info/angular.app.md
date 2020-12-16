@@ -49,7 +49,7 @@ This is the `Component` decorator, which describes a class that will generate HT
 The toolchain for Angular is similar to the previous one, it relies on webpack and the WDS, with customizations
 specific to Angular. Angular is using Webpack, but the details of configuration are not exposed directly.
 You can see and change the configuration used for the TypeScript compiler because the project is created with
-a tsconfig.json file `angularApp/tsconfig.json`. \
+a tsconfig.json file `angular_app/tsconfig.json`. \
 `tsconfig.json` should write the compiled JS to `dist/out-tsc` but you won’t see that because webpack is used to
 create a bundle automatically. `experimentalDecorators` and `emitDecoratorMetadata` are mandatory fo Angular.
 
