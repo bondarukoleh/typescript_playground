@@ -242,3 +242,25 @@ Vue.js doesn’t include integrated support for HTTP requests. A popular choice 
 the Axios package, which I have used throughout this part of the book and which was added to the example
 project in Listing 21-3. To define the HTTP operations that the example application requires, I added a file
 called httpHandler.ts to the src/data folder and added the code shown in Listing 21-20.
+
+### URL Routing
+Most Vue.js projects rely on URL routing, which uses the browser’s current URL to select the components that are
+displayed to the user.
+```ts
+import Vue from "vue"
+import Router from "vue-router"
+import ProductList from "./views/ProductList.vue";
+
+Vue.use(Router)
+export default new Router({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes: [
+    {path: "/products", component: ProductList},
+    {path: "/", redirect: "/products"}
+  ]
+})
+```
+
+The `router-view` element displays the selected component. \
+The `router-link` element renders an HTML element that navigates to the specified URL when it is clicked.

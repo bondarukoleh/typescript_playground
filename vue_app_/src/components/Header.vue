@@ -1,9 +1,12 @@
 <template>
   <div class="p-1 bg-secondary text-white text-right">
     {{ displayText }}
-    <button class="btn btn-sm btn-primary m-1">
+<!--    <button class="btn btn-sm btn-primary m-1">-->
+<!--      Submit Order-->
+<!--    </button>-->
+    <router-link to="/order" class="btn btn-sm btn-primary m-1">
       Submit Order
-    </button>
+    </router-link>
   </div>
 </template>
 
