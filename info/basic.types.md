@@ -405,7 +405,7 @@ leave the unassigned vars behind.
 /* strictNullChecks enabled */
 // let res: number | string; /* Variable 'aa' is used before being assigned. */
 let res!: number | string; /* ! - forces compiler to be silent */
-``` 
+```
 
 Don’t ever use the types `Number, String, Boolean, Symbol, or Object`. These types refer to non-primitive boxed objects
 that are almost never used appropriately in JavaScript code.
@@ -413,3 +413,7 @@ that are almost never used appropriately in JavaScript code.
 /* WRONG */
 function reverse(s: String): String {}
 ```
+
+#### post-fix expression operator "!"
+That's the non-null assertion operator. It is a way to tell the compiler "this expression cannot be null or
+undefined, so don't complain about the possibility of it being null or undefined"
