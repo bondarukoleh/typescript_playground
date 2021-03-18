@@ -6,7 +6,10 @@
   "rules": {
     "no-console": false,
     "no-debugger": false,
-    "prefer-const": false
+    "prefer-const": false,
+    "only-arrow-functions": false,
+    "callable-types": false,
+    "max-classes-per-file": false
 //    "no-any": true
   }
 }

@@ -9,6 +9,7 @@ import * as inheritance from './classes/inheritanse';
 import * as abstract from './classes/abstract';
 import * as interfaces from './classes/interfaces';
 import * as generics from './generics';
+import * as decorators from './decorators'
 
 function tryFewThings() {
   function printMsg(message: string): void {
@@ -37,7 +38,7 @@ function checkUnknown() {
   // num = someVar; /* Error Type 'unknown' is not assignable to type 'number' */
   num = someVar as number /* type assertion */
 
-  if (typeof someVar == 'number') { /* type guard */
+  if (typeof someVar === 'number') { /* type guard */
     num = someVar;
   }
 }
@@ -53,7 +54,7 @@ function checkNull() {
 // checkNull()
 
 const tscImplicitAssertions = () => {
-  function calculateTax(amount: number) {
+  function calculateSomeTax(amount: number) {
     return amount * 1.2;
   }
 
@@ -61,7 +62,7 @@ const tscImplicitAssertions = () => {
     return arg.toFixed();
   }
   const price = 100;
-  const taxAmount = calculateTax(price);
+  const taxAmount = calculateSomeTax(price);
 
   const res = dumb("qwe");
   const reset: number = res;
@@ -81,3 +82,11 @@ function checkOverLoaded() {
 function runEverything(){
   console.log(arrays, objects, classesConstructor, classes, inheritance, abstract, interfaces, generics)
 }
+
+function tryDecorators() {
+  const {SomeClass} = decorators;
+  const someClass = new SomeClass();
+  someClass.someMethod('asd', {a: 123});
+  someClass.otherMethod();
+}
+tryDecorators();
