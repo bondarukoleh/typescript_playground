@@ -5,7 +5,7 @@ function decorateFunction(name: string) {
 
     descriptor.value = function (...args) {
       try {
-        return originalFunction.bind(this, ...args);
+        return originalFunction.apply(this, args);
       } catch (e) {
         console.log('Error in function');
         console.error(e);
