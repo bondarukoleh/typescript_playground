@@ -68,10 +68,40 @@ data.push(new Supplier("dpeters", "Dora Peters", "New York", "Acme"));
 
 class A { constructor(public a: string) {} }
 class B extends A { constructor(public a: string, public b: string) { super(a) } }
-class C extends A { constructor(public a: string, public C: string) { super(a) } }
+class C extends A { constructor(public a: string, public c: string) { super(a) } }
 export const arr = [new B("a", "b"), new C("a", "c")];
 // arr will be
 // export declare const arr: A[];
+
+
+class AA {
+  public someVariable: string;
+
+  constructor() {
+    Object.defineProperty(this, 'someVariable',  {
+      configurable: true,
+      enumerable: true,
+      writable: true
+    })
+  }
+
+  someParentMethod(){
+    console.log('Hi');
+  }
+}
+
+class BB extends AA {
+  constructor() {
+    super();
+  }
+
+  someMethod(){
+    // console.log(super.someVariable); // TS2340: Only public and protected methods of the base class are accessible via the 'super' keyword.
+    super.someParentMethod(); // this will print HI
+  }
+}
+
+// new BB().someMethod()
 
 export {}
 
